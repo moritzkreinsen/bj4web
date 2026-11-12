@@ -12,9 +12,15 @@ try {
   await page.locator("#create").click();
   await page.locator("#ide").waitFor();
   const project=page.url();
+  await page.locator("#add").click();
+  await page.locator("#entryValue").press("Escape");
+  await page.locator("#entryDialog").waitFor({state:"hidden"});
+  assert.equal(await page.locator(".tile").count(),0);
   async function add(path,source) {
-    page.once("dialog",d=>d.accept(path));
+
     await page.locator("#add").click();
+    await page.locator("#entryValue").fill(path);
+    await page.locator("#entryValue").press("Enter");
     await page.waitForFunction(p=>document.querySelector("#file").textContent===p,path);
     await page.locator("#source").fill(source);
     await page.locator("#compile").click();

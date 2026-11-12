@@ -40,3 +40,8 @@ button:focus-visible,summary:focus-visible{outline:2px solid #306ba2}input:not([
 #editorPanel{left:5vw}}
 
 button:disabled{color:#777;cursor:default;background:#e5e5e5}
+
+#entryDialog{width:min(360px,90vw);border:1px solid #888;border-radius:6px;background:var(--chrome);color:inherit;padding:16px;box-shadow:0 8px 27px #0003}
+#entryDialog::backdrop{background:#0003}
+#entryTitle{margin:0 0 12px;font-size:16px}
+.dialog-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:14px}
