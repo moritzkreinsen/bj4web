@@ -1,7 +1,7 @@
 "use strict";
 const strings = {
-  en: {cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
-  de: {cancel:"Abbrechen",ok:"OK",rerun:"Erneut ausführen",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse",save:"Speichern",compile:"Kompilieren",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
+  en: {testClass:"Create Test Class",unsupportedWeb:"Unavailable in the web version",createObject:"Create Object",methodCall:"Method Call",instanceName:"Instance name:",remove:"Remove",duplicate:"Duplicate...",classInspect:"Inspect",inherited:"inherited from",methodResult:"Method Result",cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
+  de: {testClass:"Testklasse erzeugen",unsupportedWeb:"In der Webversion nicht verfügbar",createObject:"Objekt erzeugen",methodCall:"Methodenaufruf",instanceName:"Instanzname:",remove:"Entfernen",duplicate:"Duplicate...",classInspect:"Inspizieren",inherited:"geerbt von",methodResult:"Methodenergebnis",cancel:"Abbrechen",ok:"OK",rerun:"Re-run",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse...",save:"Speichern",compile:"Übersetzen",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
 };
 const el = id => document.getElementById(id);
 let language = localStorage.getItem("bj4web.language") || navigator.languages.map(s=>s.split("-")[0]).find(s=>s in strings) || "en";
@@ -11,7 +11,7 @@ function translate() {
   document.querySelectorAll("[data-t]").forEach(node => node.textContent=t(node.dataset.t));
   document.querySelectorAll("[data-t-title]").forEach(n=>{n.title=t(n.dataset.tTitle); n.setAttribute("aria-label",n.title)});
   document.querySelectorAll("[data-t-label]").forEach(n=>n.setAttribute("aria-label",t(n.dataset.tLabel)));
-  el("members").setAttribute("aria-label",t("members"));
+
 }
 el("lang").onchange = () => {language=el("lang").value; localStorage.setItem("bj4web.language",language); translate()};
 translate();
@@ -39,36 +39,25 @@ function choices(id, names, fn) {
     const b=document.createElement("button"); b.textContent=name; b.onclick=()=>enqueue(()=>fn(name)); el(id).append(b);
   }
 }
-function members(value) {
-  el("members").replaceChildren(...value.split("\n").filter(Boolean).map(s=>new Option(s,s)));
-}
 async function chooseFile(name) {
-  el("window").hidden=true;
   selected=name; receiver="";
   el("file").textContent=name; el("source").disabled=!name; el("source").value=files[name]||"";
-  el("fields").textContent=""; members("");
-  if(running && name) {
-    const type=name.slice(0,-5).replaceAll("/",".");
-    members(await rpc("class",type));
-  }
   document.querySelectorAll(".tile").forEach(tile=>tile.setAttribute("aria-pressed",tile.dataset.path===name));
-
 }
 async function inspect(name) {
-  receiver=name; el("inspectTitle").textContent=name; showPanel("inspectPanel");
-  await renderWindow(name);
-  el("fields").textContent=await rpc("fields",name);
-  members(await rpc("methods",name));
+  receiver=name; el("inspectTitle").textContent=name;
+  el("fields").textContent=await rpc("fields",name); showPanel("inspectPanel");
 }
-
 async function bench() {
   const rows=running ? (await rpc("bench")).split("\n").filter(Boolean) : [];
   el("bench").replaceChildren();
   for(const row of rows) {
     const [name,type]=row.split("\t");
-    const button=document.createElement("button"); button.textContent=name+": "+type; button.dataset.name=name;
-    button.onclick=()=>enqueue(()=>inspect(name));
-    button.oncontextmenu=event=>{event.preventDefault(); enqueue(()=>inspect(name))};
+    const button=document.createElement("button"); button.textContent=name+":\n"+type; button.dataset.name=name;
+    function select(){receiver=name; for(const b of el("bench").children)b.setAttribute("aria-pressed",b===button);el("status").textContent=name+" : "+type}
+    button.onclick=select;
+    button.ondblclick=()=>enqueue(()=>inspect(name));
+    button.oncontextmenu=event=>{event.preventDefault(); select(); enqueue(()=>objectMenu(name,event.clientX,event.clientY))};
     el("bench").append(button);
   }
 }
@@ -130,16 +119,51 @@ click("compile",async()=>{
   el("console").textContent=result.console||""; el("status").textContent=result.ok?t("compiled"):"";
   changed.clear(); listFiles(); await bench(); await chooseFile(selected); el("editorPanel").hidden=true; if(!result.ok) showPanel("consolePanel");
 });
-click("invoke",async()=>{
-  if(!el("members").value) throw Error(t("invalid"));
-  const args=el("args").value;
-  const call=[el("members").value,receiver,"",...(args?args.split("\n"):[])];
-  const result=await rpc("invoke",call[0],receiver,el("name").value.trim(),...call.slice(3));
-  lastCall=call; el("rerun").disabled=false;
-  el("console").textContent+=result+"\n"; el("name").value=""; el("args").value="";
-  await bench(); if(receiver) {el("fields").textContent=await rpc("fields",receiver); await renderWindow(receiver)}
-});
-click("rerun",async()=>{if(!running || !lastCall) return; const value=await rpc("invoke",...lastCall); el("console").textContent+=value+"\n"; showPanel("consolePanel")});
+let activeCall=null;
+function suggestName(type) {
+  const base=type[0].toLowerCase()+type.slice(1);
+  const names=new Set(Array.from(el("bench").children,b=>b.dataset.name));
+  let i=1; while(names.has(base+i)) i++;
+  return base+i;
+}
+async function executeCall(call,args,name) {
+  const value=await rpc("invoke",call.key,call.target,name,...args);
+  lastCall={call,args}; el("rerun").disabled=false;
+  await bench(); await renderWindow(name||call.target);
+  if(call.result!=="new" && call.result!=="void"){
+    el("console").textContent+=value+"\n";
+    el("inspectTitle").textContent=t("methodResult"); el("fields").textContent=value; showPanel("inspectPanel");
+  }
+}
+async function beginCall(call) {
+  const ctor=call.result==="new";
+  // Reference-valued calls can put their result on the bench.
+  const canKeep=!["new","void","int","char","byte","short","long","float","double","boolean","String"].includes(call.result);
+  if(!ctor && !canKeep && !call.params.length) return executeCall(call,[],"");
+  activeCall=call;
+  el("callTitle").textContent="BJ4Web:  "+t(ctor?"createObject":"methodCall");
+  el("signature").textContent=call.label;
+  el("instanceRow").hidden=!ctor&&!canKeep;
+  el("name").value=ctor?suggestName(call.label.split("(")[0]):"";
+  el("name").required=ctor;
+  el("parameters").replaceChildren();
+  for(const param of call.params){
+    const label=document.createElement("label"),input=document.createElement("input");
+    label.textContent=param;label.append(input);el("parameters").append(label);
+  }
+  el("callError").textContent="";el("callDialog").showModal();
+  const focus=el("parameters").querySelector("input")||el("name");focus.focus();focus.select();
+}
+el("cancelCall").onclick=()=>el("callDialog").close();
+el("callForm").onsubmit=event=>{
+  event.preventDefault(); const call=activeCall;
+  const args=Array.from(el("parameters").querySelectorAll("input"),i=>i.value);
+  const name=el("instanceRow").hidden?"":el("name").value.trim();
+  el("invoke").disabled=true;
+  enqueue(async()=>{try{await executeCall(call,args,name);el("callDialog").close()}
+    catch(error){el("callError").textContent=error.message}finally{el("invoke").disabled=false}});
+};
+click("rerun",async()=>{if(running && lastCall) await executeCall(lastCall.call,lastCall.args,lastCall.call.result==="new"?suggestName(lastCall.call.label.split("(")[0]):"")});
 click("share",async()=>{await navigator.clipboard.writeText(location.href); el("status").textContent=t("copied")});
 click("export",async()=>{
   await save(); const bytes=Uint8Array.from(atob((await api("export")).archive),c=>c.charCodeAt(0));
@@ -180,7 +204,7 @@ click("rename",async()=>{
   files[next]=files[selected]; delete files[selected]; await updateFiles(next);
 });
 click("removeFile",async()=>{
-  if(!selected || !confirm(t("confirm"))) return;
+  if(!selected || await requestEntry("remove","confirm","","confirm")===null) return;
   delete files[selected]; await updateFiles(Object.keys(files)[0]||"");
 });
 async function importArchive(input, fresh) {
@@ -227,7 +251,7 @@ document.addEventListener("pointerdown",event=>{
   if(!event.target.closest("nav")) document.querySelectorAll("nav details").forEach(d=>d.open=false);
 });
 document.addEventListener("keydown",event=>{
-  if(event.key==="Escape" && !el("entryDialog").open){
+  if(event.key==="Escape" && !el("entryDialog").open && !el("callDialog").open){
     el("context").hidden=true; inheritance=null; el("inherit").setAttribute("aria-pressed","false");
     for(const panel of document.querySelectorAll(".panel:not(#window)")) panel.hidden=true;
   }
@@ -255,6 +279,17 @@ function edges() {
       const start=boundary(tile),end=boundary(destination);
       const line=document.createElementNS("http://www.w3.org/2000/svg","path");
       line.setAttribute("d",`M${a.x+dx*start},${a.y+dy*start} L${b.x-dx*end},${b.y-dy*end}`);
+      if(!inherits){
+        const direction=b.y>=a.y?1:-1;
+        const top=a.y+direction*tile.offsetHeight/2;
+        const endX=b.x+(a.x<b.x?-1:1)*destination.offsetWidth/2;
+        const middle=top+(b.y-top)*0.52;
+        const elbow=endX+(a.x<b.x?-18:18);
+        line.setAttribute("d",Math.abs(dx)>tile.offsetWidth ?
+          `M${a.x},${top} V${b.y} H${endX}` :
+          `M${a.x},${top} V${middle} H${elbow} V${b.y} H${endX}`);
+        line.setAttribute("fill","none");
+      }
       line.setAttribute("stroke","#333"); line.setAttribute("stroke-width","1.4");
       line.setAttribute("marker-end",inherits?"url(#triangle)":"url(#tip)");
       if(!inherits) line.setAttribute("stroke-dasharray","6 4");
@@ -284,38 +319,90 @@ async function tileAction(path) {
   dirty=true; changed.add(child); await save(); listFiles(); await chooseFile(child);
 }
 click("inherit",()=>{inheritance=inheritance===null?"":null; el("inherit").setAttribute("aria-pressed",inheritance!==null); el("status").textContent=inheritance===null?"":t("pickChild")});
+function menuItem(parent,text,action,builtin=false) {
+  const button=document.createElement("button"); button.textContent=text;
+  if(builtin) button.className="builtin";
+  button.onclick=()=>{el("context").hidden=true;enqueue(action)};
+  parent.append(button);return button;
+}
+function addCalls(menu,description,target) {
+  const groups=new Map();
+  for(const row of description.split("\n").filter(Boolean)){
+    const [key,result,label,parent,parameters]=row.split("\t");
+    let list=menu;
+    if(parent){
+      if(!groups.has(parent)){
+        const group=document.createElement("details"),summary=document.createElement("summary");
+        summary.textContent=t("inherited")+" "+parent;group.append(summary);menu.prepend(group);groups.set(parent,group);
+      }
+      list=groups.get(parent);
+    }
+    menuItem(list,result+" "+label,()=>beginCall({key,result,label,target,params:parameters?parameters.split(", "):[]}));
+  }
+}
+function openMenu(menu,x,y) {
+  menu.hidden=false;
+  menu.style.left=Math.max(0,Math.min(x,innerWidth-menu.offsetWidth))+"px";
+  menu.style.top=Math.max(0,Math.min(y,innerHeight-menu.offsetHeight))+"px";
+  (menu.querySelector("summary")||menu.querySelector("button")).focus();
+}
+el("context").onkeydown=event=>{
+  const menu=el("context"), current=document.activeElement;
+  const items=Array.from(menu.querySelectorAll("button,summary")).filter(item=>item.offsetHeight);
+  const step=event.key==="ArrowDown"?1:event.key==="ArrowUp"?-1:0;
+  if(step){event.preventDefault();items[(items.indexOf(current)+step+items.length)%items.length]?.focus()}
+  if(event.key==="ArrowRight" && current.tagName==="SUMMARY"){current.parentElement.open=true;current.parentElement.querySelector("button")?.focus()}
+  if(event.key==="ArrowLeft" && current.closest("details")){const group=current.closest("details");group.open=false;group.querySelector("summary").focus()}
+};
+function divider(menu){if(menu.childElementCount)menu.append(document.createElement("hr"))}
 async function classMenu(path,x,y) {
   await chooseFile(path);
-  const menu=el("context"); menu.replaceChildren();
-  function item(text,fn) {const b=document.createElement("button"); b.textContent=text; b.onclick=()=>{menu.hidden=true;fn()};menu.append(b)}
-  item(t("editor"),editor);
-  item(t("compile"),()=>el("compile").click());
-  for(const option of el("members").options) {
-    const signature=option.value;
-    const constructor=signature.startsWith("public "+path.slice(0,-5).replaceAll("/",".")+"(");
-    item((constructor?"new ":"")+signature.replace(/^public (static )?/,""),()=>{
-      el("args").value=""; el("name").value="";
-      if(constructor) {
-        const base=shortName(path)[0].toLowerCase()+shortName(path).slice(1);
-        const names=new Set(Array.from(el("bench").children,b=>b.dataset.name));
-        let i=1; while(names.has(base+i)) i++;
-        el("name").value=base+i;
-      }
-      el("members").value=signature; el("inspectTitle").textContent=shortName(path); showPanel("inspectPanel")});
+  const menu=el("context"),type=path.slice(0,-5).replaceAll("/","."); menu.replaceChildren();
+  if(running && !changed.has(path)) addCalls(menu,await rpc("class",type),"");
+  divider(menu);
+  menuItem(menu,t("edit"),editor,true);
+  menuItem(menu,t("compile"),()=>el("compile").click(),true);
+  if(running && !changed.has(path)) menuItem(menu,t("classInspect"),async()=>{
+    el("inspectTitle").textContent=type;el("fields").textContent=await rpc("staticFields",type);showPanel("inspectPanel");
+  },true);
+  menuItem(menu,t("remove"),()=>el("removeFile").click(),true);
+  menuItem(menu,t("duplicate"),async()=>{
+    const target=await requestEntry("duplicate","filename",path.replace(".java","Copy.java"));
+    if(!target || !/^(?:[A-Za-z_$][\w$]*\/)*[A-Za-z_$][\w$]*\.java$/.test(target)||Object.hasOwn(files,target))return;
+    const newName=shortName(target);
+    if(target.slice(0,target.lastIndexOf("/")+1)!==path.slice(0,path.lastIndexOf("/")+1))throw Error(t("invalid"));
+    files[target]=files[path].replace(/[A-Za-z_$][\w$]*/g,word=>word===shortName(path)?newName:word);
+    await updateFiles(target);
+  },true);
+  for(const label of ["Convert to Stride",t("testClass")]){
+    if(label===t("testClass"))divider(menu);
+    const unavailable=document.createElement("button"); unavailable.textContent=label;
+    unavailable.disabled=true;unavailable.title=t("unsupportedWeb");menu.append(unavailable);
   }
-  menu.hidden=false;
-  menu.style.left=Math.max(0,Math.min(x,innerWidth-menu.offsetWidth))+"px"; menu.style.top=Math.max(0,Math.min(y,innerHeight-menu.offsetHeight))+"px";menu.firstChild.focus();
+  openMenu(menu,x,y);
+}
+async function objectMenu(name,x,y) {
+  receiver=name;const menu=el("context");menu.replaceChildren();
+  addCalls(menu,await rpc("methods",name),name);divider(menu);
+  menuItem(menu,t("classInspect"),()=>inspect(name),true);
+  menuItem(menu,t("remove"),async()=>{await rpc("remove",name);await bench()},true);
+  openMenu(menu,x,y);
 }
 function listFiles() {
   const layer=el("classes"); layer.replaceChildren(); tiles.clear();
-  for(const [index,path] of Object.keys(files).entries()) {
+  const paths=Object.keys(files);
+  // Place the common dependency above its clients until the user moves the targets.
+  const common=paths.length>2 && paths.find(path=>paths.every(other=>other===path ||
+    (sourceTokens(other).match(/[A-Za-z_$][\w$]*/g)||[]).includes(shortName(path))));
+  const clients=paths.filter(path=>path!==common).sort();
+  for(const [index,path] of paths.entries()) {
     const tile=document.createElement("button"), label=document.createElement("strong");
     tile.className="tile";tile.dataset.path=path;tile.title=path;tile.setAttribute("aria-pressed",path===selected);
     tile.classList.toggle("pending",!running||changed.has(path));
     const kind=sourceTokens(path).match(/\b(interface|abstract\s+class|enum|record)\s+/);
     if(kind){const badge=document.createElement("small");badge.textContent="«"+kind[1]+"»";tile.append(badge)}
     label.textContent=shortName(path);tile.append(label);layer.append(tile);tiles.set(path,tile);
-    const [x,y]=positions[path]||[38+(index%3)*190,35+Math.floor(index/3)*125+(index%2)*65];
+    const [x,y]=positions[path]||(common ? (path===common?[30+(clients.length-1)*85,30]:[30+clients.indexOf(path)*170,160]) : [38+(index%3)*190,35+Math.floor(index/3)*125+(index%2)*65]);
     place(tile,x,y);
     let drag=null,moved=false;
     tile.onpointerdown=e=>{if(e.button!==0)return;moved=false;drag={x:e.clientX,y:e.clientY,left:tile.offsetLeft,top:tile.offsetTop};tile.setPointerCapture(e.pointerId)};

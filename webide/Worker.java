@@ -16,10 +16,19 @@ public class Worker {
         List<Executable> available = new ArrayList<>();
         if (!instance) available.addAll(Arrays.asList(type.getConstructors()));
         for (Method method : type.getMethods())
-            if (method.getDeclaringClass() != Object.class && Modifier.isStatic(method.getModifiers()) != instance)
+            if (!method.isSynthetic() && Modifier.isStatic(method.getModifiers()) != instance)
                 available.add(method);
         for (Executable member : available) members.put(member.toGenericString(), member);
-        return available.stream().map(Executable::toGenericString).sorted().collect(Collectors.joining("\n"));
+        return available.stream().sorted(Comparator.comparing((Executable e) -> e instanceof Method)
+                .thenComparing(Executable::getName).thenComparing(Executable::toGenericString)).map(e -> {
+            String parameters = Arrays.stream(e.getParameters()).map(param ->
+                param.getType().getSimpleName() + " " + param.getName()).collect(Collectors.joining(", "));
+            boolean ctor = e instanceof Constructor<?>;
+            String result = ctor ? "new" : ((Method)e).getReturnType().getSimpleName();
+            String call = (ctor ? type.getSimpleName() : e.getName()) + "(" + parameters + ")";
+            String parent = e.getDeclaringClass() == type ? "" : e.getDeclaringClass().getSimpleName();
+            return String.join("\t",e.toGenericString(),result,call,parent,parameters);
+        }).collect(Collectors.joining("\n"));
     }
 
     private Class<?> load(String name) throws ClassNotFoundException {
@@ -45,6 +54,13 @@ public class Worker {
     private String run(String[] p) throws Exception {
         switch (p[0]) {
             case "class": return describe(load(p[1]), false);
+            case "staticFields": {
+                StringJoiner fields = new StringJoiner("\n");
+                for (Field f : load(p[1]).getDeclaredFields())
+                    if (Modifier.isStatic(f.getModifiers()) && f.trySetAccessible())
+                        fields.add(f.getType().getSimpleName() + " " + f.getName() + " = " + f.get(null));
+                return fields.toString();
+            }
             case "relations": {
                 Class<?> type = load(p[1]);
                 Set<String> edges = new LinkedHashSet<>();

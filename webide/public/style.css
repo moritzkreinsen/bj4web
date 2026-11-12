@@ -45,3 +45,10 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 #entryDialog::backdrop{background:#0003}
 #entryTitle{margin:0 0 12px;font-size:16px}
 .dialog-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:14px}
+.project{grid-template-columns:114px minmax(0,1fr)}.project aside button{min-height:24px;padding:2px;font:12px system-ui}.tile{min-width:62px;height:40px;box-shadow:1px 1px 3px #0004}.tile strong{padding:1px 8px;font-size:12px}.tile[aria-pressed=true]:after{content:"";position:absolute;bottom:3px;right:2px;width:15px;height:2px;border-block:1px solid;transform:rotate(-45deg)}
+#bench{padding:7px}#bench button{white-space:pre-line;width:89px;min-height:58px;padding:3px;font-size:12px;background:#e65050;border:1px solid #333;border-radius:18px;box-shadow:1px 1px 3px #0005}
+#context{min-width:130px;padding:3px 0;border-radius:0;background:white;font:12px system-ui;max-height:80vh}#context button,#context summary{padding:5px 6px;border-radius:0}#context .builtin{color:darkred}#context hr{margin:2px 0;border:0;border-top:1px solid #ccc}#context button:hover,#context button:focus-visible,#context summary:hover{background:#009fc7;color:white}#context details button{padding-left:16px}
+#callDialog{width:320px;padding:0 10px 10px;border:1px solid #aaa;border-radius:6px;background:#f5f5f5;font:12px system-ui;color:#171717}#callDialog::backdrop{background:#0001}#callTitle{margin:0 -10px 10px;justify-content:center;font-weight:600}#signature{display:block;border-bottom:1px solid #ccc;padding:4px 0 12px}#callForm label{display:flex;align-items:center;gap:10px;margin:12px 0}#callForm input{min-width:0;flex:1}#callForm .dialog-actions{margin-top:24px}#callForm button{min-width:78px}#invoke{background:linear-gradient(#cfe9f4,#9dc6d7)}#callError{color:darkred}
+#bench button[aria-pressed=true]{outline:2px solid #111;outline-offset:-2px}
+#context summary::after{content:"▸";float:right;margin-left:12px}
+#context details[open] summary::after{content:"▾"}

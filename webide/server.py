@@ -79,7 +79,7 @@ def compile_project(key, files):
             target.write_text(source, encoding="utf8")
         classes = path / ".classes"
         classes.mkdir()
-        result = subprocess.run([JAVA / "javac", "-proc:none", "-encoding", "UTF-8", "-d", classes, *files],
+        result = subprocess.run([JAVA / "javac", "-proc:none", "-parameters", "-encoding", "UTF-8", "-d", classes, *files],
                                 cwd=path, capture_output=True, timeout=25)
         if result.returncode:
             folder.cleanup()
@@ -98,7 +98,7 @@ def runtime(key, parts):
     if key not in sessions:
         raise Fault(409, "compileFirst")
     if not isinstance(parts, list) or not parts or parts[0] not in (
-        "objects", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
+        "objects", "staticFields", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
     ) or not all(isinstance(item, str) for item in parts):
         raise Fault(400, "invalid")
     process = sessions[key][0]

@@ -7,3 +7,5 @@ The public security boundary, JavaFX and JDI debugger remain outstanding. See FE
 The revised project window follows the upstream package manager palette and proportions. Browser tests verify both relationship arrows in the sample, drag persistence after reload, double-click editing and constructor selection from a class context menu.
 
 Classroom ZIP import was verified with the test-only Shapes project. The browser created three distinct Circle objects, selected one by its bench name, and checked rendered pixels after visibility, movement and color changes. The normal start screen opens user-provided ZIPs.
+
+Compared the open desktop Shapes project with the web interaction on 2026-11-12. Constructors lead the class menu. The construction dialog selects a proposed bench name and accepts Enter. Instance menus expose typed Java signatures and inherited members. Zero-argument void calls run directly. Parameterized calls expose individual fields. Double-clicking an instance inspects it. Stride conversion and test-class generation remain unavailable in the browser.

@@ -26,23 +26,26 @@ try {
     await page.waitForFunction(p=>document.querySelector("#file").textContent===p,path);
     await page.locator("#source").fill(source);
     await page.locator("#compile").click();
-    await page.waitForFunction(()=>document.querySelector("#members").options.length>0);
+    await page.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length>0 && document.querySelector("#editorPanel").hidden);
   }
   async function invoke(pattern,args="",name="") {
-    if(await page.locator("#inspectPanel").isHidden()){
-      await page.locator(".tile[aria-pressed=true]").click({button:"right"});
-      await page.locator("#context button").filter({hasText:pattern}).first().click();
+    const target=pattern.startsWith("Person.")?page.locator("#bench button").first():page.locator(".tile[aria-pressed=true]");
+    await target.click({button:"right"});
+    const needle=pattern.startsWith("Person(")?"new Person(":pattern.split(".").pop().split("(")[0]+"(";
+    await page.locator("#context button").filter({hasText:needle}).first().click();
+    if(args || name){
+      const inputs=page.locator("#parameters input");
+      if(args) for(const [i,value] of args.split("\n").entries())await inputs.nth(i).fill(value);
+      if(name)await page.locator("#name").fill(name);
+      await page.locator("#invoke").click();await page.locator("#callDialog").waitFor({state:"hidden"});
     }
-    const option=page.locator("#members option").filter({hasText:pattern}).first();
-    await page.locator("#members").selectOption(await option.getAttribute("value"));
-    await page.locator("#args").fill(args); await page.locator("#name").fill(name);
-    await page.locator("#invoke").click();
   }
   const source='public class Person { private int age; public Person(String name,int age){this.age=age;} public void birthday(){age++;System.out.println("birthday");} public int getAge(){return age;} public int read(Person p){return p.age;} }';
   await add("Person.java",source);
   await invoke("Person(java.lang.String,int)","Alice\n20","person1");
   await page.locator("#bench button",{hasText:"person1"}).click();
   await invoke("Person.birthday()");
+  await page.locator("#bench button").first().dblclick();
   await page.waitForFunction(()=>document.querySelector("#fields").textContent.includes("age = 21"));
   await invoke("Person.getAge()");
   await page.waitForFunction(()=>document.querySelector("#console").textContent.includes("21\n"));
@@ -50,7 +53,7 @@ try {
   await invoke("Person.read(Person)","@person1");
   await page.waitForFunction(()=>document.querySelector("#console").textContent.endsWith("21\n21\n"));
   await page.locator("#lang").selectOption("de");
-  assert.equal(await page.locator("#compile").innerText(),"Kompilieren");
+  assert.equal(await page.locator("#compile").innerText(),"Übersetzen");
   const download=page.waitForEvent("download"); await page.locator("nav summary").first().click(); await page.locator("#export").click();
   assert.equal((await download).suggestedFilename(),"bj4web.zip");
   await page.reload(); await page.locator("#start").waitFor();
@@ -63,7 +66,9 @@ try {
   await second.locator("#ide").waitFor(); assert.equal(await second.locator("#source").inputValue(),source);
   await add("CounterWindow.java",await readFile(new URL("../examples/CounterWindow.java",import.meta.url),"utf8"));
   await invoke("CounterWindow.create()","","counter");
-  await page.locator("#bench button",{hasText:"counter"}).click();
+  await page.locator("#bench button",{hasText:"counter"}).click({button:"right"});
+  await page.locator("#context").waitFor();
+  await page.keyboard.press("Escape");
   await page.locator("#window button",{hasText:"+1"}).click();
   await page.waitForFunction(()=>document.querySelector("#window p").textContent==="1");
   await page.locator("#window button").last().click(); await page.locator("#window").waitFor({state:"hidden"});
@@ -75,7 +80,7 @@ with zipfile.ZipFile(b,"w") as z:
 sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.locator("#openZip").setInputFiles({name:"Shapes.zip",mimeType:"application/zip",buffer:archive});
   const circle=diagram.getByRole("button",{name:"Circle",exact:true});
-  await circle.click({button:"right"}); await diagram.locator("#context button").filter({hasText:/Compile|Kompilieren/}).click();
+  await circle.click({button:"right"}); await diagram.locator("#context button").filter({hasText:/Compile|Übersetzen/}).click();
   await diagram.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length===4);
   assert.equal(await diagram.locator("#edges path").count(),3);
   const before=await circle.boundingBox();
@@ -89,17 +94,18 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
     await circle.click({button:"right"});
     await diagram.locator("#context button").filter({hasText:"new Circle()"}).click();
     assert.equal(await diagram.locator("#name").inputValue(),expected);
+    assert.equal(await diagram.locator("#name").evaluate(n=>n.value.slice(n.selectionStart,n.selectionEnd)),expected);
     if(override) await diagram.locator("#name").fill(override);
-    await diagram.locator("#invoke").click();
+    await diagram.locator("#name").press("Enter");
     await diagram.getByRole("button",{name:(override||expected)+": Circle",exact:true}).waitFor();
-    await diagram.locator("[data-hide=inspectPanel]").click();
+    await diagram.locator("#callDialog").waitFor({state:"hidden"});
   }
   await newCircle("circle1"); await newCircle("circle2","sonne"); await newCircle("circle2","mond");
-  await diagram.getByRole("button",{name:"sonne: Circle",exact:true}).click({button:"right"});
+  let object="sonne: Circle";
   async function method(name,arg=""){
-    const opt=diagram.locator("#members option").filter({hasText:name}).first();
-    await diagram.locator("#members").selectOption(await opt.getAttribute("value"));
-    await diagram.locator("#args").fill(arg); await diagram.locator("#invoke").click();
+    await diagram.getByRole("button",{name:object,exact:true}).click({button:"right"});
+    await diagram.locator("#context button").filter({hasText:" "+name.split("(")[0]+"("}).first().click();
+    if(arg){await diagram.locator("#parameters input").fill(arg);await diagram.locator("#invoke").click()}
   }
   await method("makeVisible()");
   await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(60,70,1,1).data[2]===255 && document.querySelector("#window canvas").getContext("2d").getImageData(60,70,1,1).data[0]===0);
@@ -107,7 +113,7 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[0]===0);
   await method("changeColor(java.lang.String)","yellow");
   await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[2]===0);
-  await diagram.getByRole("button",{name:"mond: Circle",exact:true}).click();
+  await diagram.getByRole("button",{name:"mond: Circle",exact:true}).dblclick();
   await diagram.waitForFunction(()=>document.querySelector("#fields").textContent.includes("visible = false"));
   assert.match(await diagram.locator("#fields").innerText(),/color = blue/);
   await diagram.locator("[data-hide=inspectPanel]").click();
@@ -116,12 +122,11 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
     await diagram.locator(".tile").filter({hasText:type}).click({button:"right"});
     await diagram.locator("#context button").filter({hasText:"new "+type+"()"}).click();
     await diagram.locator("#invoke").click();
-    await diagram.getByRole("button",{name:type.toLowerCase()+"1: "+type,exact:true}).click();
+    object=type.toLowerCase()+"1: "+type;
     await method("makeVisible()");
     const x=type==="Square" ? 140 : 200;
     const channel=type==="Square" ? 1 : 0;
     await diagram.waitForFunction(([x,ch])=>document.querySelector("#window canvas")?.getContext("2d").getImageData(x,75,1,1).data[ch]===0,[x,channel]);
-    await diagram.locator("[data-hide=inspectPanel]").click();
     await diagram.locator("#window button").last().click();
   }
   if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
