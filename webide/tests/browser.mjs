@@ -21,6 +21,10 @@ try {
     await page.waitForFunction(()=>document.querySelector("#members").options.length>0);
   }
   async function invoke(pattern,args="",name="") {
+    if(await page.locator("#inspectPanel").isHidden()){
+      await page.locator(".tile[aria-pressed=true]").click({button:"right"});
+      await page.locator("#context button").filter({hasText:pattern}).first().click();
+    }
     const option=page.locator("#members option").filter({hasText:pattern}).first();
     await page.locator("#members").selectOption(await option.getAttribute("value"));
     await page.locator("#args").fill(args); await page.locator("#name").fill(name);
@@ -39,7 +43,7 @@ try {
   await page.waitForFunction(()=>document.querySelector("#console").textContent.endsWith("21\n21\n"));
   await page.locator("#lang").selectOption("de");
   assert.equal(await page.locator("#compile").innerText(),"Kompilieren");
-  const download=page.waitForEvent("download"); await page.locator("#export").click();
+  const download=page.waitForEvent("download"); await page.locator("nav summary").first().click(); await page.locator("#export").click();
   assert.equal((await download).suggestedFilename(),"bj4web.zip");
   await page.reload(); await page.locator("#start").waitFor();
   await page.locator("#password").fill("local-test-only"); await page.locator("#open").click();
@@ -55,6 +59,24 @@ try {
   await page.locator("#window button",{hasText:"+1"}).click();
   await page.waitForFunction(()=>document.querySelector("#window p").textContent==="1");
   await page.locator("#window button").last().click(); await page.locator("#window").waitFor({state:"hidden"});
+  const diagram=await browser.newPage(); await diagram.goto(url); await diagram.locator("#example").click();
+  await diagram.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length===3);
+  assert.equal(await diagram.locator("#edges path").count(),2);
+  const student=diagram.getByRole("button",{name:"Student",exact:true});
+  const before=await student.boundingBox();
+  await diagram.mouse.move(before.x+25,before.y+20); await diagram.mouse.down();
+  await diagram.mouse.move(before.x+100,before.y+80,{steps:6}); await diagram.mouse.up();
+  assert.ok((await student.boundingBox()).x>before.x+50);
+  await diagram.reload(); await student.waitFor(); assert.ok((await student.boundingBox()).x>before.x+50);
+  await student.dblclick(); await diagram.locator("#source").waitFor();
+  assert.match(await diagram.locator("#source").inputValue(),/extends Person/);
+  await diagram.locator("[data-hide=editorPanel]").click();
+  await student.click({button:"right"});
+  await diagram.locator("#context button").filter({hasText:"Student()"}).first().click();
+  await diagram.locator("#name").fill("student1"); await diagram.locator("#invoke").click();
+  await diagram.locator("#bench button",{hasText:"student1"}).waitFor();
+  await diagram.locator("[data-hide=inspectPanel]").click();
+  if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
   assert.deepEqual(errors,[]);
   console.log("Browser workflow passed: password, sources, compilation, live objects, console, refresh, second browser, ZIP, language and Swing events.");
 } finally {await browser.close()}

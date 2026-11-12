@@ -1,7 +1,7 @@
 "use strict";
 const strings = {
-  en: {rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
-  de: {rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse",save:"Speichern",compile:"Kompilieren",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
+  en: {rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",example:"Open example project",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
+  de: {rerun:"Erneut ausführen",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",example:"Beispielprojekt öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse",save:"Speichern",compile:"Kompilieren",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
 };
 const el = id => document.getElementById(id);
 let language = localStorage.getItem("bj4web.language") || navigator.languages.map(s=>s.split("-")[0]).find(s=>s in strings) || "en";
@@ -9,12 +9,14 @@ const t = key => strings[language][key] || key;
 function translate() {
   el("lang").value = document.documentElement.lang = language;
   document.querySelectorAll("[data-t]").forEach(node => node.textContent=t(node.dataset.t));
+  document.querySelectorAll("[data-t-title]").forEach(n=>{n.title=t(n.dataset.tTitle); n.setAttribute("aria-label",n.title)});
+  document.querySelectorAll("[data-t-label]").forEach(n=>n.setAttribute("aria-label",t(n.dataset.tLabel)));
   el("members").setAttribute("aria-label",t("members"));
 }
 el("lang").onchange = () => {language=el("lang").value; localStorage.setItem("bj4web.language",language); translate()};
 translate();
 let token="", files={}, revision=0, selected="", receiver="", running=false, dirty=false, timer;
-let queue=Promise.resolve();
+let queue=Promise.resolve(), lastCall=null;
 function enqueue(fn) {
   queue=queue.then(fn).catch(e=>{el("status").textContent=e.message});
 }
@@ -48,21 +50,24 @@ async function chooseFile(name) {
   if(running && name) {
     const type=name.slice(0,-5).replaceAll("/",".");
     members(await rpc("class",type));
-    el("relations").textContent=await rpc("relations",type);
-  } else el("relations").textContent="";
+  }
+  document.querySelectorAll(".tile").forEach(tile=>tile.setAttribute("aria-pressed",tile.dataset.path===name));
+
 }
 async function inspect(name) {
-  receiver=name;
+  receiver=name; el("inspectTitle").textContent=name; showPanel("inspectPanel");
   await renderWindow(name);
   el("fields").textContent=await rpc("fields",name);
   members(await rpc("methods",name));
 }
-function listFiles() { choices("classes",Object.keys(files),chooseFile) }
+
 async function bench() {
   choices("bench", running ? (await rpc("objects")).split("\n").filter(Boolean) : [], inspect);
 }
 async function openWorkspace() {
   const state=await api("open");
+  layoutKey="bj4web.diagram."+Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(token))),n=>n.toString(16).padStart(2,"0")).join("");
+  positions=JSON.parse(localStorage.getItem(layoutKey)||"{}");
   files=state.files; revision=state.revision; running=state.running; dirty=false;
   history.replaceState(null,"","#"+token);
   el("start").hidden=true; el("ide").hidden=false; el("status").textContent="";
@@ -87,28 +92,31 @@ click("add",async()=>{
   if(!/^(?:[\w$]+\/)*[a-zA-Z_$][\w$]*\.java$/.test(path)||Object.hasOwn(files,path)) throw Error(t("invalid"));
   const parts=path.slice(0,-5).split("/"), name=parts.pop();
   files[path]=(parts.length?"package "+parts.join(".")+";\n\n":"")+"public class "+name+" {\n\n}\n";
-  dirty=true; listFiles(); await save(); running=false; await bench(); await chooseFile(path);
+  dirty=true; listFiles(); await save(); running=false; await bench(); await chooseFile(path); showPanel("editorPanel"); el("source").focus();
 });
-el("source").oninput=()=>{files[selected]=el("source").value; dirty=true; clearTimeout(timer); timer=setTimeout(()=>enqueue(save),500)};
+el("source").oninput=()=>{files[selected]=el("source").value; changed.add(selected); listFiles(); dirty=true; clearTimeout(timer); timer=setTimeout(()=>enqueue(save),500)};
 click("save",save);
 click("compile",async()=>{
-  await save(); const result=await api("compile"); running=result.ok;
+  await save(); lastCall=null; el("rerun").disabled=true; const result=await api("compile"); running=result.ok;
   el("console").textContent=result.console||""; el("status").textContent=result.ok?t("compiled"):"";
-  await bench(); await chooseFile(selected);
+  changed.clear(); listFiles(); await bench(); await chooseFile(selected); el("editorPanel").hidden=true; if(!result.ok) showPanel("consolePanel");
 });
 click("invoke",async()=>{
   if(!el("members").value) throw Error(t("invalid"));
   const args=el("args").value;
-  const result=await rpc("invoke",el("members").value,receiver,el("name").value.trim(),...(args?args.split("\n"):[]));
+  const call=[el("members").value,receiver,"",...(args?args.split("\n"):[])];
+  const result=await rpc("invoke",call[0],receiver,el("name").value.trim(),...call.slice(3));
+  lastCall=call; el("rerun").disabled=false;
   el("console").textContent+=result+"\n"; el("name").value=""; el("args").value="";
   await bench(); if(receiver) {el("fields").textContent=await rpc("fields",receiver); await renderWindow(receiver)}
 });
+click("rerun",async()=>{if(!running || !lastCall) return; const value=await rpc("invoke",...lastCall); el("console").textContent+=value+"\n"; showPanel("consolePanel")});
 click("share",async()=>{await navigator.clipboard.writeText(location.href); el("status").textContent=t("copied")});
 click("export",async()=>{
   await save(); const bytes=Uint8Array.from(atob((await api("export")).archive),c=>c.charCodeAt(0));
   const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([bytes],{type:"application/zip"})); a.download="bj4web.zip"; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 });
-if(location.hash) {el("link").value=location.href; token=location.hash.slice(1); enqueue(openWorkspace)}
+
 
 async function renderWindow(name) {
   const layout=await rpc("gui",name), panel=el("window");
@@ -152,3 +160,134 @@ click("changePassword",async()=>{
   const value=prompt(t("changePassword")); if(value===null) return;
   await api("password",{newPassword:value}); el("password").value=value;
 });
+
+let positions={}, layoutKey="", inheritance=null;
+const changed=new Set();
+const shortName=path=>path.split("/").pop().slice(0,-5);
+const tiles=new Map();
+function showPanel(id) {
+  for(const panel of document.querySelectorAll(".panel")) if(panel.id!=="window") panel.hidden=panel.id!==id;
+  el(id).hidden=false;
+}
+document.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>el(b.dataset.hide).hidden=true);
+function editor() {
+  if(selected) { showPanel("editorPanel"); el("source").focus() }
+}
+click("editClass",editor);
+click("terminal",()=>showPanel("consolePanel"));
+document.querySelectorAll("nav details").forEach(menu=>{
+  menu.addEventListener("toggle",()=>{if(menu.open) for(const other of document.querySelectorAll("nav details")) if(other!==menu) other.open=false});
+  menu.addEventListener("click",event=>{if(event.target.closest("button")) menu.open=false});
+});
+document.addEventListener("pointerdown",event=>{
+  if(!event.target.closest("#context")) el("context").hidden=true;
+  if(!event.target.closest("nav")) document.querySelectorAll("nav details").forEach(d=>d.open=false);
+});
+document.addEventListener("keydown",event=>{
+  if(event.key==="Escape"){
+    el("context").hidden=true; inheritance=null; el("inherit").setAttribute("aria-pressed","false");
+    for(const panel of document.querySelectorAll(".panel:not(#window)")) panel.hidden=true;
+  }
+});
+function sourceTokens(path) {
+  return files[path].replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*|"""[\s\S]*?"""|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g,part=>" ".repeat(part.length));
+}
+function edges() {
+  const lines=[];
+  for(const [path,tile] of tiles) {
+    const code=sourceTokens(path);
+    const declaration=code.match(/\b(?:class|interface|enum|record)\s+[\w$]+([^{}]*)\{/);
+    for(const [target,destination] of tiles) {
+      if(path===target) continue;
+      const name=shortName(target);
+      const words=value=>value.match(/[A-Za-z_$][\w$]*/g)||[];
+      const header=declaration?.[1]||"";
+      const inherits=words(header.match(/\b(?:extends|implements)\b[\s\S]*/)?.[0]||"").includes(name);
+      if(!inherits && (!el("uses").checked || !words(code).includes(name))) continue;
+      const a={x:tile.offsetLeft+tile.offsetWidth/2,y:tile.offsetTop+tile.offsetHeight/2};
+      const b={x:destination.offsetLeft+destination.offsetWidth/2,y:destination.offsetTop+destination.offsetHeight/2};
+      const dx=b.x-a.x, dy=b.y-a.y;
+      if(!dx&&!dy) continue;
+      function boundary(node) {return Math.min(node.offsetWidth/2/Math.abs(dx),node.offsetHeight/2/Math.abs(dy))}
+      const start=boundary(tile),end=boundary(destination);
+      const line=document.createElementNS("http://www.w3.org/2000/svg","path");
+      line.setAttribute("d",`M${a.x+dx*start},${a.y+dy*start} L${b.x-dx*end},${b.y-dy*end}`);
+      line.setAttribute("stroke","#333"); line.setAttribute("stroke-width","1.4");
+      line.setAttribute("marker-end",inherits?"url(#triangle)":"url(#tip)");
+      if(!inherits) line.setAttribute("stroke-dasharray","6 4");
+      lines.push(line);
+    }
+  }
+  el("edges").replaceChildren(...lines);
+}
+el("uses").onchange=edges;
+function place(tile,x,y) {
+  tile.style.left=x+"px"; tile.style.top=y+"px";
+}
+function sizeSheet() {
+  let w=0,h=0;
+  for(const tile of tiles.values()){w=Math.max(w,tile.offsetLeft+tile.offsetWidth+24);h=Math.max(h,tile.offsetTop+tile.offsetHeight+24)}
+  el("sheet").style.width=w+"px"; el("sheet").style.height=h+"px";
+}
+async function tileAction(path) {
+  if(inheritance===null) return chooseFile(path);
+  if(inheritance===""){inheritance=path; el("status").textContent=t("pickParent"); return}
+  const child=inheritance;
+  inheritance=null; el("inherit").setAttribute("aria-pressed","false");
+  const match=sourceTokens(child).match(/\bclass\s+([A-Za-z_$][\w$]*)\s*(?=\{)/);
+  if(path===child || !match || match[1]!==shortName(child) || !/\bclass\s/.test(sourceTokens(path))) throw Error(t("unsupported"));
+  const end=match.index+match[0].trimEnd().length;
+  files[child]=files[child].slice(0,end)+" extends "+path.slice(0,-5).replaceAll("/",".")+files[child].slice(end);
+  dirty=true; changed.add(child); await save(); listFiles(); await chooseFile(child);
+}
+click("inherit",()=>{inheritance=inheritance===null?"":null; el("inherit").setAttribute("aria-pressed",inheritance!==null); el("status").textContent=inheritance===null?"":t("pickChild")});
+async function classMenu(path,x,y) {
+  await chooseFile(path);
+  const menu=el("context"); menu.replaceChildren();
+  function item(text,fn) {const b=document.createElement("button"); b.textContent=text; b.onclick=()=>{menu.hidden=true;fn()};menu.append(b)}
+  item(t("editor"),editor);
+  for(const option of el("members").options) {
+    const signature=option.value;
+    item(signature.replace(/^public (static )?/,""),()=>{el("members").value=signature; el("inspectTitle").textContent=shortName(path); showPanel("inspectPanel")});
+  }
+  menu.hidden=false;
+  menu.style.left=Math.max(0,Math.min(x,innerWidth-menu.offsetWidth))+"px"; menu.style.top=Math.max(0,Math.min(y,innerHeight-menu.offsetHeight))+"px";menu.firstChild.focus();
+}
+function listFiles() {
+  const layer=el("classes"); layer.replaceChildren(); tiles.clear();
+  for(const [index,path] of Object.keys(files).entries()) {
+    const tile=document.createElement("button"), label=document.createElement("strong");
+    tile.className="tile";tile.dataset.path=path;tile.title=path;tile.setAttribute("aria-pressed",path===selected);
+    tile.classList.toggle("pending",!running||changed.has(path));
+    const kind=sourceTokens(path).match(/\b(interface|abstract\s+class|enum|record)\s+/);
+    if(kind){const badge=document.createElement("small");badge.textContent="«"+kind[1]+"»";tile.append(badge)}
+    label.textContent=shortName(path);tile.append(label);layer.append(tile);tiles.set(path,tile);
+    const [x,y]=positions[path]||[38+(index%3)*190,35+Math.floor(index/3)*125+(index%2)*65];
+    place(tile,x,y);
+    let drag=null,moved=false;
+    tile.onpointerdown=e=>{if(e.button!==0)return;moved=false;drag={x:e.clientX,y:e.clientY,left:tile.offsetLeft,top:tile.offsetTop};tile.setPointerCapture(e.pointerId)};
+    tile.onpointermove=e=>{
+      if(!drag)return;
+      const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+      if(!moved && Math.hypot(dx,dy)<4)return;
+      moved=true;place(tile,Math.max(4,drag.left+dx),Math.max(4,drag.top+dy));sizeSheet();edges();
+    };
+    tile.onpointerup=()=>{if(moved){positions[path]=[tile.offsetLeft,tile.offsetTop];localStorage.setItem(layoutKey,JSON.stringify(positions))}drag=null};
+    tile.onpointercancel=()=>{drag=null};
+    tile.onclick=()=>{if(!moved) enqueue(()=>tileAction(path));moved=false};
+    tile.ondblclick=()=>enqueue(async()=>{await chooseFile(path);editor()});
+    tile.onkeydown=e=>{if(e.key==="Enter" && !e.shiftKey){e.preventDefault();enqueue(async()=>{await chooseFile(path);editor()})}};
+    tile.oncontextmenu=e=>{e.preventDefault();enqueue(()=>classMenu(path,e.clientX||tile.getBoundingClientRect().left,e.clientY||tile.getBoundingClientRect().bottom))};
+  }
+  el("empty").hidden=tiles.size>0; sizeSheet();edges();
+}
+click("example",async()=>{
+  token=(await api("create")).token;
+  await api("save",{revision:0,files:{
+    "Person.java":"public class Person {\n    public String name() { return getClass().getSimpleName(); }\n}\n",
+    "Student.java":"public class Student extends Person {\n    private Course course;\n    public void enrol(Course course) { this.course = course; }\n}\n",
+    "Course.java":"public class Course {\n    public String title() { return \"Java\"; }\n}\n"
+  }});
+  await openWorkspace();el("compile").click();
+});
+if(location.hash){el("link").value=location.href;token=location.hash.slice(1);enqueue(openWorkspace)}

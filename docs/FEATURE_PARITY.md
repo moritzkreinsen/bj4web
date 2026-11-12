@@ -7,7 +7,7 @@
 | Rename and delete | Partially implemented | File operations only. Symbol references and package declarations require manual changes. |
 | ZIP exchange | Partially implemented | Java sources only. Other BlueJ resources and diagram positions do not round-trip. |
 | Compilation | Implemented | Real javac, text diagnostics, synchronous output. |
-| Class diagram | Partially implemented | Selectable class tiles and reflected relationships for the selected compiled type. No draggable graph or complete source dependency analysis. |
+| Class diagram | Partially implemented | Draggable BlueJ-style class targets, inheritance and uses arrows, browser-local positions and a simple inheritance creation tool. Source token matching is approximate for generics, nested types and ambiguous names. |
 | Object bench | Implemented | Named live instances, exact public overloads, static and instance invocation, object-reference arguments. |
 | Object inspection | Partially implemented | Accessible inherited and declared fields, primitive/string parameters, null and existing references. No recursive array or collection explorer. |
 | Console | Partially implemented | Synchronous stdout/stderr and exception traces. Interactive stdin and asynchronous output pending. |
