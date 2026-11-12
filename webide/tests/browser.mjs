@@ -1,4 +1,6 @@
 // Run against a fresh loopback test server with Playwright and Chromium installed.
+import {execFileSync} from "node:child_process";
+import {fileURLToPath} from "node:url";
 import assert from "node:assert/strict";
 import {readFile} from "node:fs/promises";
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE || "playwright");
@@ -65,23 +67,63 @@ try {
   await page.locator("#window button",{hasText:"+1"}).click();
   await page.waitForFunction(()=>document.querySelector("#window p").textContent==="1");
   await page.locator("#window button").last().click(); await page.locator("#window").waitFor({state:"hidden"});
-  const diagram=await browser.newPage(); await diagram.goto(url); await diagram.locator("#example").click();
-  await diagram.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length===3);
-  assert.equal(await diagram.locator("#edges path").count(),2);
-  const student=diagram.getByRole("button",{name:"Student",exact:true});
-  const before=await student.boundingBox();
+  const diagram=await browser.newPage(); await diagram.goto(url); const projects=fileURLToPath(new URL("./projects/",import.meta.url));
+  const archive=execFileSync("python3",["-c",`import io,sys,zipfile,pathlib
+b=io.BytesIO()
+with zipfile.ZipFile(b,"w") as z:
+ for p in pathlib.Path("Shapes").glob("*"): z.write(p)
+sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
+  await diagram.locator("#openZip").setInputFiles({name:"Shapes.zip",mimeType:"application/zip",buffer:archive});
+  const circle=diagram.getByRole("button",{name:"Circle",exact:true});
+  await circle.click({button:"right"}); await diagram.locator("#context button").filter({hasText:/Compile|Kompilieren/}).click();
+  await diagram.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length===4);
+  assert.equal(await diagram.locator("#edges path").count(),3);
+  const before=await circle.boundingBox();
   await diagram.mouse.move(before.x+25,before.y+20); await diagram.mouse.down();
   await diagram.mouse.move(before.x+100,before.y+80,{steps:6}); await diagram.mouse.up();
-  assert.ok((await student.boundingBox()).x>before.x+50);
-  await diagram.reload(); await student.waitFor(); assert.ok((await student.boundingBox()).x>before.x+50);
-  await student.dblclick(); await diagram.locator("#source").waitFor();
-  assert.match(await diagram.locator("#source").inputValue(),/extends Person/);
+  await diagram.reload(); await circle.waitFor(); assert.ok((await circle.boundingBox()).x>before.x+50);
+  await circle.dblclick(); await diagram.locator("#source").waitFor();
+  assert.match(await diagram.locator("#source").inputValue(),/public class Circle/);
   await diagram.locator("[data-hide=editorPanel]").click();
-  await student.click({button:"right"});
-  await diagram.locator("#context button").filter({hasText:"Student()"}).first().click();
-  await diagram.locator("#name").fill("student1"); await diagram.locator("#invoke").click();
-  await diagram.locator("#bench button",{hasText:"student1"}).waitFor();
+  async function newCircle(expected,override) {
+    await circle.click({button:"right"});
+    await diagram.locator("#context button").filter({hasText:"new Circle()"}).click();
+    assert.equal(await diagram.locator("#name").inputValue(),expected);
+    if(override) await diagram.locator("#name").fill(override);
+    await diagram.locator("#invoke").click();
+    await diagram.getByRole("button",{name:(override||expected)+": Circle",exact:true}).waitFor();
+    await diagram.locator("[data-hide=inspectPanel]").click();
+  }
+  await newCircle("circle1"); await newCircle("circle2","sonne"); await newCircle("circle2","mond");
+  await diagram.getByRole("button",{name:"sonne: Circle",exact:true}).click({button:"right"});
+  async function method(name,arg=""){
+    const opt=diagram.locator("#members option").filter({hasText:name}).first();
+    await diagram.locator("#members").selectOption(await opt.getAttribute("value"));
+    await diagram.locator("#args").fill(arg); await diagram.locator("#invoke").click();
+  }
+  await method("makeVisible()");
+  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(60,70,1,1).data[2]===255 && document.querySelector("#window canvas").getContext("2d").getImageData(60,70,1,1).data[0]===0);
+  await method("moveHorizontal(int)","70");
+  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[0]===0);
+  await method("changeColor(java.lang.String)","yellow");
+  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[2]===0);
+  await diagram.getByRole("button",{name:"mond: Circle",exact:true}).click();
+  await diagram.waitForFunction(()=>document.querySelector("#fields").textContent.includes("visible = false"));
+  assert.match(await diagram.locator("#fields").innerText(),/color = blue/);
   await diagram.locator("[data-hide=inspectPanel]").click();
+  await diagram.locator("#window button").last().click();
+  for(const type of ["Square","Triangle"]){
+    await diagram.locator(".tile").filter({hasText:type}).click({button:"right"});
+    await diagram.locator("#context button").filter({hasText:"new "+type+"()"}).click();
+    await diagram.locator("#invoke").click();
+    await diagram.getByRole("button",{name:type.toLowerCase()+"1: "+type,exact:true}).click();
+    await method("makeVisible()");
+    const x=type==="Square" ? 140 : 200;
+    const channel=type==="Square" ? 1 : 0;
+    await diagram.waitForFunction(([x,ch])=>document.querySelector("#window canvas")?.getContext("2d").getImageData(x,75,1,1).data[ch]===0,[x,channel]);
+    await diagram.locator("[data-hide=inspectPanel]").click();
+    await diagram.locator("#window button").last().click();
+  }
   if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
   assert.deepEqual(errors,[]);
   console.log("Browser workflow passed: password, sources, compilation, live objects, console, refresh, second browser, ZIP, language and Swing events.");

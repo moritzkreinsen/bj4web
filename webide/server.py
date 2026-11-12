@@ -98,7 +98,7 @@ def runtime(key, parts):
     if key not in sessions:
         raise Fault(409, "compileFirst")
     if not isinstance(parts, list) or not parts or parts[0] not in (
-        "objects", "class", "methods", "fields", "invoke", "remove", "gui", "click", "close", "relations"
+        "objects", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
     ) or not all(isinstance(item, str) for item in parts):
         raise Fault(400, "invalid")
     process = sessions[key][0]
@@ -162,6 +162,13 @@ def api(db, action, data, token):
                         if item.filename in imported:
                             raise Fault(400, "invalid")
                         imported[item.filename] = archive.read(item).decode("utf8")
+                # A desktop ZIP often wraps the project in one directory. Keep package subdirectories.
+                roots = [Path(entry.filename).parent for entry in entries
+                         if Path(entry.filename).name == "package.bluej"]
+                if imported and roots:
+                    root = min(roots, key=lambda path: len(path.parts))
+                    if all(Path(name).is_relative_to(root) for name in imported):
+                        imported = {str(Path(name).relative_to(root)): source for name, source in imported.items()}
                 validate(imported)
                 if not imported:
                     raise Fault(400, "empty")

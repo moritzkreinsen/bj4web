@@ -11,8 +11,8 @@
 | Object bench | Implemented | Named live instances, exact public overloads, static and instance invocation, object-reference arguments. |
 | Object inspection | Partially implemented | Accessible inherited and declared fields, primitive/string parameters, null and existing references. No recursive array or collection explorer. |
 | Console | Partially implemented | Synchronous stdout/stderr and exception traces. Interactive stdin and asynchronous output pending. |
-| Swing | Experimental | JInternalFrame, JLabel and JButton, EDT listeners, close and refresh. |
-| JavaFX, arbitrary native windows, painting | Unsupported | No scene graph adapter or graphics recorder. |
+| Swing | Experimental | JInternalFrame, JLabel and JButton, EDT listeners, close and refresh. Custom-painted leaf panels can render as bounded snapshots after object calls. |
+| JavaFX, arbitrary native windows, continuous painting | Unsupported | No scene graph adapter or graphics recorder. |
 | Debugger | Unsupported | JDI breakpoints, stepping, stack frames and local inspection pending. |
 | Stride and Kotlin | Unsupported | Desktop modules remain available in the fork. |
 | German and English | Partially implemented | Browser catalog, manual language selection, localized controls. Raw compiler and runtime messages pass through. |

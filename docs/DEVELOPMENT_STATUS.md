@@ -5,3 +5,5 @@ Baseline c05b2fff2. Local prototype verified on 2026-11-12 with Homebrew OpenJDK
 The public security boundary, JavaFX and JDI debugger remain outstanding. See FEATURE_PARITY.md and SECURITY.md. Known limitations include synchronous invocation, incomplete diagram semantics, manual rename refactoring and lack of support for arbitrary GUI programs. The next steps are sandboxed compilation/execution, asynchronous transport and JDI extraction. Upstream desktop tests and hostile-code isolation tests were not run for this milestone.
 
 The revised project window follows the upstream package manager palette and proportions. Browser tests verify both relationship arrows in the sample, drag persistence after reload, double-click editing and constructor selection from a class context menu.
+
+Classroom ZIP import was verified with the test-only Shapes project. The browser created three distinct Circle objects, selected one by its bench name, and checked rendered pixels after visibility, movement and color changes. The normal start screen opens user-provided ZIPs.

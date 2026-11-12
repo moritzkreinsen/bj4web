@@ -59,6 +59,7 @@ public class Worker {
             case "gui": return gui.render(bench.get(p[1]));
             case "click": return gui.click(p[1]);
             case "close": return gui.close(bench.get(p[1]));
+            case "bench": return names.stream().map(n -> n + "\t" + bench.get(n).getClass().getSimpleName()).collect(Collectors.joining("\n"));
             case "objects": return String.join("\n", names);
             case "methods": return describe(Objects.requireNonNull(bench.get(p[1])).getClass(), true);
             case "remove": bench.remove(p[1]); names.remove(p[1]); return "";

@@ -10,6 +10,18 @@ import javax.swing.*;
 final class SwingBridge {
     private final Map<String, JButton> buttons = new HashMap<>();
     private int nextId;
+    private JInternalFrame visibleWindow;
+
+    SwingBridge() {
+        java.awt.Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
+            if (event.getID() == java.awt.event.ComponentEvent.COMPONENT_SHOWN
+                    && event.getSource() instanceof JInternalFrame frame) visibleWindow = frame;
+        }, java.awt.AWTEvent.COMPONENT_EVENT_MASK);
+    }
+
+    private JInternalFrame window(Object root) {
+        return root instanceof JInternalFrame frame ? frame : visibleWindow;
+    }
 
     private static String onEdt(Callable<String> action) throws Exception {
         FutureTask<String> task = new FutureTask<>(action);
@@ -20,7 +32,8 @@ final class SwingBridge {
     String render(Object root) throws Exception {
         return onEdt(() -> {
             buttons.clear();
-            if (!(root instanceof JInternalFrame frame) || frame.isClosed()) return "";
+            JInternalFrame frame = window(root);
+            if (frame == null || frame.isClosed()) return "";
             List<String> rows = new ArrayList<>();
             rows.add(row("window", "", frame.getTitle()));
             visit(frame.getContentPane(), rows);
@@ -33,13 +46,25 @@ final class SwingBridge {
             Objects.toString(text, "").getBytes(StandardCharsets.UTF_8));
     }
 
-    private void visit(Component component, List<String> rows) {
+    private void visit(Component component, List<String> rows) throws java.io.IOException {
         if (!component.isVisible()) return;
         if (component instanceof JLabel label) rows.add(row("label", "", label.getText()));
         else if (component instanceof JButton button) {
             String id = Integer.toString(++nextId);
             buttons.put(id, button);
             rows.add(row("button", id, button.getText()));
+        } else if (component instanceof JPanel panel && panel.getComponentCount() == 0
+                && panel.getClass() != JPanel.class) {
+            var size = panel.getSize();
+            if (size.width == 0 || size.height == 0) size = panel.getPreferredSize();
+            if (size.width <= 0 || size.height <= 0 || size.width > 1024 || size.height > 1024) return;
+            panel.setSize(size);
+            var image = new java.awt.image.BufferedImage(size.width, size.height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            var graphics = image.createGraphics();
+            try { panel.printAll(graphics); } finally { graphics.dispose(); }
+            var bytes = new java.io.ByteArrayOutputStream();
+            javax.imageio.ImageIO.write(image, "png", bytes);
+            if (bytes.size() <= 512 * 1024) rows.add("image\t\t" + Base64.getEncoder().encodeToString(bytes.toByteArray()));
         } else if (component instanceof Container parent)
             for (Component child : parent.getComponents()) visit(child, rows);
     }
@@ -49,6 +74,6 @@ final class SwingBridge {
     }
 
     String close(Object root) throws Exception {
-        return onEdt(() -> { ((JInternalFrame)root).setClosed(true); buttons.clear(); return ""; });
+        return onEdt(() -> { window(root).setClosed(true); buttons.clear(); return ""; });
     }
 }
