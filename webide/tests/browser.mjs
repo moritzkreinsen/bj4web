@@ -24,9 +24,17 @@ try {
     await page.locator("#entryValue").fill(path);
     await page.locator("#entryValue").press("Enter");
     await page.waitForFunction(p=>document.querySelector("#file").textContent===p,path);
+    if(path==="Person.java"){
+      await page.locator("#source").fill("public class Person {");
+      await page.locator("#source").press("End"); await page.locator("#source").press("Enter");
+      assert.match(await page.locator("#source").inputValue(),/\n {4}$/);
+      await page.locator("#editorCompile").click(); await page.locator("#editorErrors").waitFor();
+      assert.match(await page.locator("#editorErrors").innerText(),/Person.java/);
+    }
     await page.locator("#source").fill(source);
-    await page.locator("#compile").click();
-    await page.waitForFunction(()=>document.querySelectorAll(".tile:not(.pending)").length>0 && document.querySelector("#editorPanel").hidden);
+    await page.locator("#editorCompile").click();
+    await page.waitForFunction(()=>document.querySelector("#editorState").textContent.match(/Compilation succeeded|Kompilierung erfolgreich/));
+    await page.locator("#closeEditor").click();
   }
   async function invoke(pattern,args="",name="") {
     const target=pattern.startsWith("Person.")?page.locator("#bench button").first():page.locator(".tile[aria-pressed=true]");
@@ -89,6 +97,13 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.reload(); await circle.waitFor(); assert.ok((await circle.boundingBox()).x>before.x+50);
   await circle.dblclick(); await diagram.locator("#source").waitFor();
   assert.match(await diagram.locator("#source").inputValue(),/public class Circle/);
+  assert.ok(await diagram.locator("#highlight .scopeMethod").count()>0);
+  await diagram.locator("#find").click(); await diagram.locator("#searchTerm").fill("diameter");
+  await diagram.locator("#findNext").click();
+  assert.equal(await diagram.locator("#source").evaluate(n=>n.value.slice(n.selectionStart,n.selectionEnd)),"diameter");
+  await diagram.locator("#editorMode").selectOption("docs");
+  assert.match(await diagram.locator("#sourceDocs").innerText(),/changeSize/);
+  await diagram.locator("#editorMode").selectOption("source");
   await diagram.locator("[data-hide=editorPanel]").click();
   async function newCircle(expected,override) {
     await circle.click({button:"right"});
