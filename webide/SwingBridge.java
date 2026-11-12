@@ -12,10 +12,38 @@ final class SwingBridge {
     private int nextId;
     private JInternalFrame visibleWindow;
 
+    private final Map<String,JInternalFrame> windows=new LinkedHashMap<>();
+    private void track(JInternalFrame frame) {
+        if (!windows.containsValue(frame)) windows.put(Integer.toString(windows.size()+1),frame);
+    }
+
+    String frames(Object returned) throws Exception {
+        return onEdt(()->{
+            if(returned instanceof JInternalFrame frame) track(frame);
+            buttons.clear();
+            List<String> rows=new ArrayList<>();
+            for(var entry:windows.entrySet()){
+                JInternalFrame frame=entry.getValue();
+                rows.add(row(frame.isClosed()?"closed":"window",entry.getKey(),frame.getTitle()));
+                if(!frame.isClosed()) visit(frame.getContentPane(),rows);
+            }
+            return String.join("\n",rows);
+        });
+    }
+
+    String frameState(String id,boolean open) throws Exception {
+        return onEdt(()->{
+            JInternalFrame frame=Objects.requireNonNull(windows.get(id));
+            frame.setClosed(!open);
+            if(open) frame.setVisible(true);
+            return "";
+        });
+    }
+
     SwingBridge() {
         java.awt.Toolkit.getDefaultToolkit().addAWTEventListener(event -> {
             if (event.getID() == java.awt.event.ComponentEvent.COMPONENT_SHOWN
-                    && event.getSource() instanceof JInternalFrame frame) visibleWindow = frame;
+                    && event.getSource() instanceof JInternalFrame frame) {visibleWindow = frame;track(frame);}
         }, java.awt.AWTEvent.COMPONENT_EVENT_MASK);
     }
 

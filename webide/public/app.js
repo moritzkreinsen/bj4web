@@ -1,7 +1,7 @@
 "use strict";
 const strings = {
-  en: {undo:"Undo",cut:"Cut",copy:"Copy",paste:"Paste",find:"Find...",closeEditor:"Close",source:"Source Code",documentation:"Documentation",nextMatch:"Find next",noMatch:"No match",modified:"Modified",manualPaste:"Press Ctrl+V or ⌘V to paste.",testClass:"Create Test Class",unsupportedWeb:"Unavailable in the web version",createObject:"Create Object",methodCall:"Method Call",instanceName:"Instance name:",remove:"Remove",duplicate:"Duplicate...",classInspect:"Inspect",inherited:"inherited from",methodResult:"Method Result",cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
-  de: {undo:"Rückgängig",cut:"Ausschneiden",copy:"Kopieren",paste:"Einfügen",find:"Suchen...",closeEditor:"Schließen",source:"Quelltext",documentation:"Dokumentation",nextMatch:"Weitersuchen",noMatch:"Kein Treffer",modified:"Geändert",manualPaste:"Zum Einfügen Strg+V oder ⌘V drücken.",testClass:"Testklasse erzeugen",unsupportedWeb:"In der Webversion nicht verfügbar",createObject:"Objekt erzeugen",methodCall:"Methodenaufruf",instanceName:"Instanzname:",remove:"Entfernen",duplicate:"Duplicate...",classInspect:"Inspizieren",inherited:"geerbt von",methodResult:"Methodenergebnis",cancel:"Abbrechen",ok:"OK",rerun:"Re-run",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse...",save:"Speichern",compile:"Übersetzen",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
+  en: {windows:"Windows",projectWindow:"Show project",openClass:"Open class…",minimize:"Minimize",getField:"Get",staticVars:"Show static fields",instanceVars:"Show instance fields",undo:"Undo",cut:"Cut",copy:"Copy",paste:"Paste",find:"Find...",closeEditor:"Close",source:"Source Code",documentation:"Documentation",nextMatch:"Find next",noMatch:"No match",modified:"Modified",manualPaste:"Press Ctrl+V or ⌘V to paste.",testClass:"Create Test Class",unsupportedWeb:"Unavailable in the web version",createObject:"Create Object",methodCall:"Method Call",instanceName:"Instance name:",remove:"Remove",duplicate:"Duplicate...",classInspect:"Inspect",inherited:"inherited from",methodResult:"Method Result",cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
+  de: {windows:"Fenster",projectWindow:"Projekt anzeigen",openClass:"Klasse öffnen…",minimize:"Minimieren",getField:"Hole",staticVars:"Zeige statische Variablen",instanceVars:"Zeige Instanzvariablen",undo:"Rückgängig",cut:"Ausschneiden",copy:"Kopieren",paste:"Einfügen",find:"Suchen...",closeEditor:"Schließen",source:"Quelltext",documentation:"Dokumentation",nextMatch:"Weitersuchen",noMatch:"Kein Treffer",modified:"Geändert",manualPaste:"Zum Einfügen Strg+V oder ⌘V drücken.",testClass:"Testklasse erzeugen",unsupportedWeb:"In der Webversion nicht verfügbar",createObject:"Objekt erzeugen",methodCall:"Methodenaufruf",instanceName:"Instanzname:",remove:"Entfernen",duplicate:"Duplicate...",classInspect:"Inspizieren",inherited:"geerbt von",methodResult:"Methodenergebnis",cancel:"Abbrechen",ok:"OK",rerun:"Re-run",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse...",save:"Speichern",compile:"Übersetzen",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
 };
 const el = id => document.getElementById(id);
 let language = localStorage.getItem("bj4web.language") || navigator.languages.map(s=>s.split("-")[0]).find(s=>s in strings) || "en";
@@ -41,13 +41,10 @@ function choices(id, names, fn) {
 }
 async function chooseFile(name) {
   selected=name; receiver="";
-  el("file").textContent=name; el("source").disabled=!name; if(el("source").value!==(files[name]||"")) el("source").value=files[name]||"";
-  renderSource();
   document.querySelectorAll(".tile").forEach(tile=>tile.setAttribute("aria-pressed",tile.dataset.path===name));
 }
 async function inspect(name) {
-  receiver=name; el("inspectTitle").textContent=name;
-  el("fields").textContent=await rpc("fields",name); showPanel("inspectPanel");
+  await openInspector("object",name,name);
 }
 async function bench() {
   const rows=running ? (await rpc("bench")).split("\n").filter(Boolean) : [];
@@ -66,10 +63,12 @@ async function openWorkspace() {
   const state=await api("open");
   layoutKey="bj4web.diagram."+Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(token))),n=>n.toString(16).padStart(2,"0")).join("");
   positions=JSON.parse(localStorage.getItem(layoutKey)||"{}");
-  files=state.files; revision=state.revision; running=state.running; dirty=false;
+  if(layoutKey!==openedWorkspace){resetRuntimeWindows();resetEditor();openedWorkspace=layoutKey}
+  files=state.files; pruneTabs(); revision=state.revision; running=state.running; dirty=false;
+  if(!running)resetRuntimeWindows();
   history.replaceState(null,"","#"+token);
   el("start").hidden=true; el("ide").hidden=false; el("status").textContent="";
-  listFiles(); await chooseFile(Object.keys(files)[0]||""); await bench();
+  listFiles(); await chooseFile(Object.keys(files)[0]||""); if(!editorPath)el("source").value=files[selected]||""; await bench(); if(running)await renderWindow("");
 }
 click("create", async()=>{token=(await api("create")).token; await openWorkspace()});
 click("open",async()=>{
@@ -113,9 +112,9 @@ click("add",async()=>{
   files[path]=(parts.length?"package "+parts.join(".")+";\n\n":"")+"public class "+name+" {\n\n}\n";
   dirty=true; listFiles(); await save(); running=false; await bench(); await chooseFile(path); editor();
 });
-el("source").oninput=()=>{renderSource();el("editorState").textContent=t("modified");files[selected]=el("source").value; changed.add(selected); listFiles(); dirty=true; clearTimeout(timer); timer=setTimeout(()=>enqueue(save),500)};
+el("source").oninput=()=>{renderSource();el("editorState").textContent=t("modified");files[editorPath]=el("source").value; changed.add(editorPath); listFiles(); dirty=true; clearTimeout(timer); timer=setTimeout(()=>enqueue(save),500)};
 async function compileProject(inEditor=false){
-  await save(); lastCall=null; el("rerun").disabled=true; const result=await api("compile"); running=result.ok;
+  await save(); lastCall=null; el("rerun").disabled=true; const result=await api("compile"); running=result.ok; resetRuntimeWindows();
   el("console").textContent=result.console||""; el("status").textContent=result.ok?t("compiled"):"";
   changed.clear(); listFiles(); await bench();
   if(inEditor){
@@ -135,7 +134,7 @@ function suggestName(type) {
 async function executeCall(call,args,name) {
   const value=await rpc("invoke",call.key,call.target,name,...args);
   lastCall={call,args}; el("rerun").disabled=false;
-  await bench(); await renderWindow(name||call.target);
+  await bench(); await renderWindow(name||call.target); await refreshInspectors();
   if(call.result!=="new" && call.result!=="void"){
     el("console").textContent+=value+"\n";
     el("inspectTitle").textContent=t("methodResult"); el("fields").textContent=value; showPanel("inspectPanel");
@@ -178,28 +177,49 @@ click("export",async()=>{
 
 
 async function renderWindow(name) {
-  const layout=await rpc("gui",name), panel=el("window");
-  panel.hidden=!layout; panel.replaceChildren(); if(!layout) return;
-  for(const row of layout.split("\n")) {
+  const layout=await rpc("frames",name);
+  let view=null;
+  for(const row of layout.split("\n").filter(Boolean)){
     const [kind,id,encoded]=row.split("\t");
-    if(kind==="image") {
-      const png=new Blob([Uint8Array.from(atob(encoded),c=>c.charCodeAt(0))],{type:"image/png"});
-      const bitmap=await createImageBitmap(png), canvas=document.createElement("canvas");
-      canvas.width=bitmap.width; canvas.height=bitmap.height;
-      canvas.getContext("2d").drawImage(bitmap,0,0); bitmap.close(); panel.append(canvas); continue;
+    if(kind==="window" || kind==="closed"){
+      const key="frame-"+id, title=decodeCell(encoded);
+      view=frameViews.get(key);
+      if(!view){
+        const panel=frameViews.size?document.createElement("section"):el("window");
+        if(!panel.id){panel.id=key;panel.className="panel guiPanel";el("ide").append(panel)}
+        panel.classList.add("guiPanel"); panel.replaceChildren(); const body=document.createElement("div");panel.append(body);
+        view={panel,body,id,title};frameViews.set(key,view);
+        registerWindow(panel,title,()=>enqueue(async()=>{await rpc("frameState",id,"false");await renderWindow("")}));
+        view.body=body;
+        const record=managed.get(panel.id);
+        const frameView=view;
+        record.restore=()=>enqueue(async()=>{
+          if(frameView.closed){await rpc("frameState",id,"true");await renderWindow("")}
+          showPanel(panel.id);
+        });
+        showPanel(panel.id);
+      }
+      view.closed=kind==="closed"; view.body.replaceChildren();
+      if(view.closed)view.panel.hidden=true;
+      continue;
     }
-    const node=document.createElement({window:"h2",label:"p",button:"button"}[kind]);
-    node.textContent=new TextDecoder().decode(Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)));
-    if(kind==="button") node.onclick=()=>enqueue(async()=>{await rpc("click",id); await renderWindow(name)});
-    panel.append(node);
+    if(!view || view.closed)continue;
+    if(kind==="image"){
+      const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
+      const bitmap=await createImageBitmap(new Blob([bytes],{type:"image/png"}));
+      const canvas=document.createElement("canvas"); canvas.width=bitmap.width;canvas.height=bitmap.height;
+      canvas.getContext("2d").drawImage(bitmap,0,0);bitmap.close();view.body.append(canvas);
+    }else{
+      const node=document.createElement(kind==="button"?"button":"p");node.textContent=decodeCell(encoded);
+      if(kind==="button")node.onclick=()=>enqueue(async()=>{await rpc("click",id);await renderWindow("")});
+      view.body.append(node);
+    }
   }
-  const close=document.createElement("button"); close.textContent=t("close");
-  close.onclick=()=>enqueue(async()=>{await rpc("close",name); await renderWindow(name)});
-  panel.append(close);
+  drawWindowList();
 }
 
 async function updateFiles(next) {
-  dirty=true; await save(); await api("stop"); running=false;
+  dirty=true; await save(); await api("stop"); running=false; resetRuntimeWindows();pruneTabs();
   listFiles(); await bench(); await chooseFile(next);
 }
 click("rename",async()=>{
@@ -238,19 +258,102 @@ let positions={}, layoutKey="", inheritance=null;
 const changed=new Set();
 const shortName=path=>path.split("/").pop().slice(0,-5);
 const tiles=new Map();
-function showPanel(id) {
-  for(const panel of document.querySelectorAll(".panel")) if(panel.id!=="window") panel.hidden=panel.id!==id;
-  el(id).hidden=false;
+const managed=new Map(), frameViews=new Map(), inspectors=new Map(), tabs=new Map();
+let editorPath="", openedWorkspace="", depth=10;
+function decodeCell(value){return new TextDecoder().decode(Uint8Array.from(atob(value),c=>c.charCodeAt(0)))}
+function drawWindowList(){
+  const list=el("windowList");list.replaceChildren();
+  for(const [id,w] of managed){
+    const row=document.createElement("div"),open=document.createElement("button"),close=document.createElement("button");
+    open.textContent=w.title;open.onclick=()=>w.restore();close.textContent="×";close.title=t("closeEditor");
+    close.setAttribute("aria-label",t("closeEditor")+" "+w.title);close.onclick=w.close;
+    row.append(open,close);list.append(row);
+  }
+  for(const [id,label] of [["editorPanel","editor"],["consolePanel","console"]]){
+    if(managed.has(id))continue;
+    const b=document.createElement("button");b.textContent=t(label);b.onclick=()=>id==="editorPanel"?editor():showPanel(id);list.append(b);
+  }
 }
-document.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>el(b.dataset.hide).hidden=true);
-function editor() {
-  if(!selected)return;
-  showPanel("editorPanel"); el("editorMode").value="source"; changeEditorMode();
-  el("editorTitle").textContent=shortName(selected)+" – BJ4Web";
+function forgetPanel(panel){
+  managed.delete(panel.id);panel.hidden=true;
+  if(panel.dataset.dynamic)panel.remove();
+  drawWindowList();
+}
+function registerWindow(panel,title,close){
+  let bar=panel.querySelector(":scope > .windowBar");
+  if(!bar){
+    bar=document.createElement("div");bar.className="windowBar";
+    const caption=document.createElement("strong"),min=document.createElement("button"),exit=document.createElement("button");
+    min.textContent="−";min.title=t("minimize");exit.textContent="×";exit.title=t("closeEditor");
+    min.onclick=()=>{panel.hidden=true};exit.onclick=()=>managed.get(panel.id)?.close();
+    bar.append(caption,min,exit);panel.prepend(bar);
+    bar.onpointerdown=e=>{
+      if(e.target.closest("button")||e.button!==0)return;
+      const rect=panel.getBoundingClientRect(),dx=e.clientX-rect.left,dy=e.clientY-rect.top;
+      bar.setPointerCapture(e.pointerId);
+      bar.onpointermove=ev=>{panel.style.transform="none";panel.style.right="auto";panel.style.bottom="auto";
+        panel.style.left=Math.max(0,Math.min(innerWidth-80,ev.clientX-dx))+"px";
+        panel.style.top=Math.max(66,Math.min(innerHeight-32,ev.clientY-dy))+"px"};
+      bar.onlostpointercapture=()=>{bar.onpointermove=null};
+    };
+    panel.addEventListener("pointerdown",()=>{panel.style.zIndex=++depth});
+  }
+  bar.firstChild.textContent=title;
+  managed.set(panel.id,{title,close,restore:()=>showPanel(panel.id)});drawWindowList();
+}
+function showPanel(id){
+  const panel=el(id);
+  if(!managed.has(id)){
+    const title=id==="editorPanel"?t("editor"):id==="inspectPanel"?el("inspectTitle").textContent:t("console");
+    registerWindow(panel,title,()=>forgetPanel(panel));
+  }
+  panel.hidden=false;panel.style.zIndex=++depth;
+}
+function projectFront(){for(const id of managed.keys())el(id).hidden=true;el("showProject").focus()}
+el("showProject").onclick=projectFront;
+el("windowsMenu").ontoggle=drawWindowList;
+function resetRuntimeWindows(){
+  for(const v of frameViews.values()){forgetPanel(v.panel);if(v.panel.id!=="window")v.panel.remove();else v.panel.replaceChildren()}
+  frameViews.clear();
+  for(const v of inspectors.values())forgetPanel(v.panel);
+  inspectors.clear();
+  if(managed.has("inspectPanel"))forgetPanel(el("inspectPanel"));
+}
+function resetEditor(){tabs.clear();editorPath="";forgetPanel(el("editorPanel"))}
+function pruneTabs(){
+  for(const path of tabs.keys())if(!Object.hasOwn(files,path))tabs.delete(path);
+  if(editorPath&&!tabs.has(editorPath)){editorPath="";if(tabs.size)editor(tabs.keys().next().value);else resetEditor()}
+}
+function editor(path=selected){
+  if(!Object.hasOwn(files,path))return;
+  const input=el("source");
+  if(tabs.has(editorPath))tabs.set(editorPath,{start:input.selectionStart,end:input.selectionEnd,scroll:input.scrollTop,mode:el("editorMode").value});
+  editorPath=path;
+  if(!tabs.has(path))tabs.set(path,{start:0,end:0,scroll:0,mode:"source"});
+  const state=tabs.get(path);
+  el("file").textContent=path;input.disabled=false;if(input.value!==files[path])input.value=files[path];
+  el("editorTitle").textContent=shortName(path)+" – BJ4Web";
+  registerWindow(el("editorPanel"),el("editorTitle").textContent,resetEditor);
+  const list=el("tabList");list.replaceChildren();
+  for(const tab of tabs.keys()){
+    const b=document.createElement("button");b.textContent=shortName(tab);b.title=tab;b.setAttribute("aria-pressed",tab===path);
+    b.onclick=()=>editor(tab);list.append(b);
+  }
+  const chooser=el("openClassTab");chooser.replaceChildren(new Option(t("openClass"),""),...Object.keys(files).map(k=>new Option(k,k)));
+  showPanel("editorPanel");el("editorMode").value=state.mode;changeEditorMode();
   el("findBar").hidden=true;el("editorErrors").hidden=true;
-  el("editorState").textContent=t(dirty?"modified":"saved");renderSource();el("source").focus();
+  el("editorState").textContent=t(dirty?"modified":"saved");renderSource();input.focus();
+  input.setSelectionRange(state.start,state.end);input.scrollTop=state.scroll;
 }
-click("editClass",editor);
+function closeTab(){
+  tabs.delete(editorPath);editorPath="";
+  if(tabs.size)editor(Array.from(tabs.keys()).pop());else resetEditor();
+}
+el("openClassTab").onchange=e=>{if(e.target.value)editor(e.target.value)};
+document.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>{
+  if(b.dataset.hide==="editorPanel")closeTab();else forgetPanel(el(b.dataset.hide));
+});
+click("editClass",()=>editor());
 click("terminal",()=>showPanel("consolePanel"));
 document.querySelectorAll("nav details").forEach(menu=>{
   menu.addEventListener("toggle",()=>{if(menu.open) for(const other of document.querySelectorAll("nav details")) if(other!==menu) other.open=false});
@@ -263,7 +366,7 @@ document.addEventListener("pointerdown",event=>{
 document.addEventListener("keydown",event=>{
   if(event.key==="Escape" && !el("entryDialog").open && !el("callDialog").open){
     el("context").hidden=true; inheritance=null; el("inherit").setAttribute("aria-pressed","false");
-    for(const panel of document.querySelectorAll(".panel:not(#window)")) panel.hidden=true;
+    if(!event.target.closest("#context"))projectFront();
   }
 });
 function sourceTokens(path) {
@@ -373,7 +476,7 @@ async function classMenu(path,x,y) {
   menuItem(menu,t("edit"),editor,true);
   menuItem(menu,t("compile"),()=>el("compile").click(),true);
   if(running && !changed.has(path)) menuItem(menu,t("classInspect"),async()=>{
-    el("inspectTitle").textContent=type;el("fields").textContent=await rpc("staticFields",type);showPanel("inspectPanel");
+    await openInspector("class",type,type);
   },true);
   menuItem(menu,t("remove"),()=>el("removeFile").click(),true);
   menuItem(menu,t("duplicate"),async()=>{
@@ -495,14 +598,14 @@ function changeEditorMode(){
   if(!docs)return;
   el("findBar").hidden=true;
   const article=el("sourceDocs");article.replaceChildren();
-  const heading=document.createElement("h2");heading.textContent=shortName(selected);article.append(heading);
+  const heading=document.createElement("h2");heading.textContent=shortName(editorPath);article.append(heading);
   for(const match of el("source").value.matchAll(/(?:\/\*\*([\s\S]*?)\*\/\s*)?\b((?:public|protected)\s+[^{};]+)[{;]/g)){
     const signature=document.createElement("pre");signature.textContent=match[2].trim();article.append(signature);
     if(match[1]){const description=document.createElement("p");description.textContent=match[1].replace(/^\s*\* ?/gm,"").trim();article.append(description)}
   }
 }
 el("editorMode").onchange=changeEditorMode;
-el("closeEditor").onclick=()=>{el("editorPanel").hidden=true};
+el("closeEditor").onclick=closeTab;
 const codeInput=el("source");
 el("undo").onclick=()=>{codeInput.focus();document.execCommand("undo")};
 for(const action of ["copy","cut"])el(action).onclick=()=>{
@@ -543,3 +646,58 @@ codeInput.addEventListener("keydown",event=>{
     document.execCommand("insertText",false,"\n"+indent);
   }
 });
+
+let nextInspector=0;
+async function openInspector(kind,target,title){
+  const key=kind+":"+target;
+  if(inspectors.has(key)){
+    const view=inspectors.get(key);await updateInspector(view);showPanel(view.panel.id);return;
+  }
+  const panel=document.createElement("section");panel.className="panel objectInspector";
+  panel.id="inspector-"+(++nextInspector);panel.dataset.dynamic="true";el("ide").append(panel);
+  const table=document.createElement("div"),actions=document.createElement("div");
+  table.className="fieldTable";table.setAttribute("role","listbox");actions.className="inspectActions";
+  const drill=document.createElement("button"),take=document.createElement("button"),toggle=document.createElement("button");
+  drill.textContent=t("classInspect");take.textContent=t("getField");
+  actions.append(drill,take);panel.append(table,actions,toggle);
+  if(kind==="object"){target=await rpc("retain",target);kind="ref"}
+  const v={panel,table,drill,take,toggle,kind,target,title,statics:kind==="class",selected:"",rows:[]};
+  async function follow(get){
+    const row=v.rows.find(row=>row[0]===v.selected);if(!row)return;
+    const args=["table",kind,target,String(v.statics),row[0]];
+    if(get){
+      const name=await requestEntry("getField","instanceName",suggestName(row[1].split(" ").at(-1)));
+      if(!name)return;await rpc(...args,name);await bench();
+    }else{
+      const ref=await rpc(...args);
+      await openInspector("ref",ref,title+"."+row[1].split(" ").at(-1));
+    }
+  }
+  drill.onclick=()=>enqueue(()=>follow(false));take.onclick=()=>enqueue(()=>follow(true));
+  toggle.hidden=kind==="class";toggle.onclick=()=>enqueue(async()=>{v.statics=!v.statics;v.selected="";await updateInspector(v)});
+  inspectors.set(key,v);
+  try{await updateInspector(v)}catch(error){inspectors.delete(key);panel.remove();throw error}
+  registerWindow(panel,title+" : "+v.type,()=>{
+    inspectors.delete(key);forgetPanel(panel);if(kind==="ref")enqueue(()=>rpc("release",target));
+  });
+  showPanel(panel.id);
+}
+async function updateInspector(v){
+  const raw=await rpc("table",v.kind,v.target,String(v.statics));
+  const [type,...lines]=raw.split("\n");v.type=type;
+  v.rows=lines.map(line=>line.split("\t"));v.table.replaceChildren();
+  if(!v.rows.some(row=>row[0]===v.selected))v.selected=v.rows[0]?.[0]||"";
+  function select(row){
+    v.selected=row?.[0]||"";
+    v.drill.disabled=row?.[3]!=="true";v.take.disabled=row?.[4]!=="true";
+    for(const b of v.table.children)b.setAttribute("aria-selected",b.dataset.key===v.selected);
+  }
+  for(const row of v.rows){
+    const b=document.createElement("button"),decl=document.createElement("span"),value=document.createElement("span");
+    b.setAttribute("role","option");b.dataset.key=row[0];decl.textContent=row[1];value.textContent=decodeCell(row[2]);
+    b.append(decl,value);v.table.append(b);b.onclick=()=>select(row);
+    b.ondblclick=()=>{select(row);if(!v.drill.disabled)v.drill.click()};
+  }
+  select(v.rows.find(row=>row[0]===v.selected));v.toggle.textContent=t(v.statics?"instanceVars":"staticVars");
+}
+async function refreshInspectors(){for(const view of inspectors.values())await updateInspector(view)}

@@ -98,7 +98,7 @@ def runtime(key, parts):
     if key not in sessions:
         raise Fault(409, "compileFirst")
     if not isinstance(parts, list) or not parts or parts[0] not in (
-        "objects", "staticFields", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
+        "objects", "frames", "retain", "frameState", "release", "table", "staticFields", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
     ) or not all(isinstance(item, str) for item in parts):
         raise Fault(400, "invalid")
     process = sessions[key][0]

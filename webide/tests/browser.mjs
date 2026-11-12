@@ -48,13 +48,20 @@ try {
       await page.locator("#invoke").click();await page.locator("#callDialog").waitFor({state:"hidden"});
     }
   }
-  const source='public class Person { private int age; public Person(String name,int age){this.age=age;} public void birthday(){age++;System.out.println("birthday");} public int getAge(){return age;} public int read(Person p){return p.age;} }';
+  const source='public class Person { public Person friend = this; private int age; public Person(String name,int age){this.age=age;} public void birthday(){age++;System.out.println("birthday");} public int getAge(){return age;} public int read(Person p){return p.age;} }';
   await add("Person.java",source);
   await invoke("Person(java.lang.String,int)","Alice\n20","person1");
   await page.locator("#bench button",{hasText:"person1"}).click();
   await invoke("Person.birthday()");
   await page.locator("#bench button").first().dblclick();
-  await page.waitForFunction(()=>document.querySelector("#fields").textContent.includes("age = 21"));
+  await page.waitForFunction(()=>Array.from(document.querySelectorAll(".fieldTable button")).some(b=>b.firstChild.textContent.endsWith(" age")&&b.lastChild.textContent==="21"));
+  const personInspector=page.locator(".objectInspector").first();
+  await personInspector.getByRole("option",{name:/Person friend/}).dblclick();
+  await page.waitForFunction(()=>document.querySelectorAll(".objectInspector").length===2);
+  await page.locator(".objectInspector").last().locator(".windowBar button").last().click();
+  await personInspector.getByRole("button",{name:"Get",exact:true}).click();
+  await page.locator("#entryValue").fill("alias");await page.locator("#entryValue").press("Enter");
+  await page.getByRole("button",{name:"alias: Person",exact:true}).waitFor();
   await invoke("Person.getAge()");
   await page.waitForFunction(()=>document.querySelector("#console").textContent.includes("21\n"));
   assert.match(await page.locator("#console").innerText(),/birthday/);
@@ -79,7 +86,7 @@ try {
   await page.keyboard.press("Escape");
   await page.locator("#window button",{hasText:"+1"}).click();
   await page.waitForFunction(()=>document.querySelector("#window p").textContent==="1");
-  await page.locator("#window button").last().click(); await page.locator("#window").waitFor({state:"hidden"});
+  await page.locator("#window .windowBar button").last().click(); await page.locator("#window").waitFor({state:"hidden"});
   const diagram=await browser.newPage(); await diagram.goto(url); const projects=fileURLToPath(new URL("./projects/",import.meta.url));
   const archive=execFileSync("python3",["-c",`import io,sys,zipfile,pathlib
 b=io.BytesIO()
@@ -104,7 +111,12 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.locator("#editorMode").selectOption("docs");
   assert.match(await diagram.locator("#sourceDocs").innerText(),/changeSize/);
   await diagram.locator("#editorMode").selectOption("source");
-  await diagram.locator("[data-hide=editorPanel]").click();
+  await diagram.locator("#openClassTab").selectOption("Square.java");
+  assert.match(await diagram.locator("#source").inputValue(),/class Square/);
+  await diagram.locator("#showProject").click();
+  await circle.dblclick();await diagram.locator("#tabList button").filter({hasText:"Square"}).click();
+  assert.match(await diagram.locator("#source").inputValue(),/class Square/);
+  await diagram.locator("#showProject").click();
   async function newCircle(expected,override) {
     await circle.click({button:"right"});
     await diagram.locator("#context button").filter({hasText:"new Circle()"}).click();
@@ -123,16 +135,25 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
     if(arg){await diagram.locator("#parameters input").fill(arg);await diagram.locator("#invoke").click()}
   }
   await method("makeVisible()");
-  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(60,70,1,1).data[2]===255 && document.querySelector("#window canvas").getContext("2d").getImageData(60,70,1,1).data[0]===0);
+  await diagram.waitForFunction(()=>document.querySelector(".guiPanel:not([hidden]) canvas")?.getContext("2d").getImageData(60,70,1,1).data[2]===255 && document.querySelector(".guiPanel:not([hidden]) canvas").getContext("2d").getImageData(60,70,1,1).data[0]===0);
+  await diagram.locator("#showProject").click();
+  await diagram.locator("#windowsMenu summary").click();
+  await diagram.locator("#windowList button").filter({hasText:"Shapes"}).first().click();
+  await diagram.locator("#window canvas").waitFor();
+  await diagram.locator("#window .windowBar button").last().click();
+  await diagram.locator("#window").waitFor({state:"hidden"});
+  await diagram.locator("#windowsMenu summary").click();
+  await diagram.locator("#windowList button").filter({hasText:"Shapes"}).first().click();
+  await diagram.locator("#window canvas").waitFor();
   await method("moveHorizontal(int)","70");
-  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[0]===0);
+  await diagram.waitForFunction(()=>document.querySelector(".guiPanel:not([hidden]) canvas")?.getContext("2d").getImageData(130,70,1,1).data[0]===0);
   await method("changeColor(java.lang.String)","yellow");
-  await diagram.waitForFunction(()=>document.querySelector("#window canvas")?.getContext("2d").getImageData(130,70,1,1).data[2]===0);
+  await diagram.waitForFunction(()=>document.querySelector(".guiPanel:not([hidden]) canvas")?.getContext("2d").getImageData(130,70,1,1).data[2]===0);
   await diagram.getByRole("button",{name:"mond: Circle",exact:true}).dblclick();
-  await diagram.waitForFunction(()=>document.querySelector("#fields").textContent.includes("visible = false"));
-  assert.match(await diagram.locator("#fields").innerText(),/color = blue/);
-  await diagram.locator("[data-hide=inspectPanel]").click();
-  await diagram.locator("#window button").last().click();
+  await diagram.waitForFunction(()=>Array.from(document.querySelectorAll(".fieldTable button")).some(b=>b.firstChild.textContent.endsWith(" visible")&&b.lastChild.textContent==="false"));
+  assert.match(await diagram.locator(".fieldTable").innerText(),/"blue"/);
+  await diagram.locator(".objectInspector .windowBar button").last().click();
+  await diagram.locator(".guiPanel:visible .windowBar button").last().click();
   for(const type of ["Square","Triangle"]){
     await diagram.locator(".tile").filter({hasText:type}).click({button:"right"});
     await diagram.locator("#context button").filter({hasText:"new "+type+"()"}).click();
@@ -141,8 +162,8 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
     await method("makeVisible()");
     const x=type==="Square" ? 140 : 200;
     const channel=type==="Square" ? 1 : 0;
-    await diagram.waitForFunction(([x,ch])=>document.querySelector("#window canvas")?.getContext("2d").getImageData(x,75,1,1).data[ch]===0,[x,channel]);
-    await diagram.locator("#window button").last().click();
+    await diagram.waitForFunction(([x,ch])=>document.querySelector(".guiPanel:not([hidden]) canvas")?.getContext("2d").getImageData(x,75,1,1).data[ch]===0,[x,channel]);
+    await diagram.locator(".guiPanel:visible .windowBar button").last().click();
   }
   if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
   assert.deepEqual(errors,[]);

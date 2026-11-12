@@ -70,3 +70,14 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 .codeRow.scopeBody{background-color:white;background-image:linear-gradient(to right,#e1f8e1 min(4ch,var(--indent)),var(--scope,#e1f8e1) min(4ch,var(--indent)) var(--indent),white var(--indent))}.scopeMethod{--scope:#fafab4}.scopeLoop{--scope:#f8e9f8}.scopeChoice{--scope:#e9e9f8}.javaKeyword{color:#603}.javaType{color:#c00}.javaLiteral{color:#060}.javaComment{color:#777}.javaDoc{color:#009}
 #editorState{min-height:22px;padding:2px 8px;text-align:right;border-top:1px solid #bbb}#editorErrors{background:#fff4ec;color:#842600;max-height:20%;overflow:auto;margin:0;padding:6px}#sourceDocs{flex:1;overflow:auto;background:white;padding:1rem 2rem}#sourceDocs pre{margin:.75em 0}
 #lineNumbers{white-space:pre}
+#ide>nav{position:sticky;top:0;z-index:100000;background:var(--chrome);align-items:center}
+#showProject{margin-left:auto}#windowList{right:0;min-width:210px}#windowList>div{display:flex}#windowList>div button:last-child{width:auto;margin-left:auto}
+#context{z-index:100001}.windowBar{display:flex;align-items:center;gap:4px;user-select:none;touch-action:none;cursor:move;background:linear-gradient(#fafafa,#dedede);border-bottom:1px solid #aaa;padding:3px 5px}
+.windowBar strong{flex:1;text-align:center}.windowBar button{padding:0 7px}.panel:not(#editorPanel)>.windowBar{margin:-10px -10px 8px}
+#editorPanel{top:max(72px,9vh);height:min(740px,calc(100vh - 86px));max-height:calc(100vh - 70px);resize:both;min-width:min(360px,94vw);min-height:240px}
+#editorTitle,.panel>.windowBar~.bar{display:none}
+.editorTabs{align-items:stretch;overflow-x:auto}#tabList{display:flex}#tabList button{background:#c5c5c5;border-right:1px solid #999}#tabList button[aria-pressed=true]{background:#eee;font-weight:600}#openClassTab{width:auto;max-width:40%;margin-left:auto;font-size:12px}
+.objectInspector{width:min(385px,94vw);background:#e65050;border:2px solid #292929;border-radius:17px;padding:12px;top:19vh;right:6vw}
+.objectInspector>.windowBar{background:transparent;color:white;border:0}.objectInspector .windowBar button{color:#222}
+.fieldTable{display:inline-flex;vertical-align:top;flex-direction:column;width:76%;max-height:42vh;overflow:auto;background:#f5b4b4;padding:8px}.fieldTable button{display:grid;grid-template-columns:1fr 1fr;text-align:left;background:transparent;border:0;padding:3px;font:12px system-ui;align-items:center}.fieldTable button span:last-child{background:white;border:1px solid #888;text-align:center;padding:2px;overflow-wrap:anywhere}.fieldTable button[aria-selected=true]{background:#ffeb00}
+.inspectActions{display:inline-flex;vertical-align:top;flex-direction:column;gap:8px;padding:5px;width:24%}.objectInspector button{font-size:12px}.objectInspector>button{margin-top:8px}.guiPanel{left:5vw;right:auto;width:max-content;max-width:92vw}

@@ -51,8 +51,64 @@ public class Worker {
         throw new IllegalArgumentException(type.getTypeName());
     }
 
+    private final Map<String,Object> inspected = new HashMap<>();
+    private int nextInspection;
+
+    private String fieldTable(String[] p) throws Exception {
+        boolean classOnly = p[1].equals("class");
+        Object owner = classOnly ? null : p[1].equals("ref") ? inspected.get(p[2]) : bench.get(p[2]);
+        Class<?> type = classOnly ? load(p[2]) : Objects.requireNonNull(owner).getClass();
+        boolean statics = classOnly || Boolean.parseBoolean(p[3]);
+        List<String> rows = new ArrayList<>();
+        rows.add(type.getSimpleName());
+        if (type.isArray() && !statics) {
+            for (int i=0; i<Math.min(Array.getLength(owner),1000); i++) {
+                Object value = Array.get(owner,i);
+                if (p.length>4 && p[4].equals(Integer.toString(i))) return takeField(value,p);
+                rows.add(fieldRow(Integer.toString(i),type.getComponentType().getSimpleName()+" ["+i+"]",value,type.getComponentType(),true));
+            }
+        } else for (Class<?> c=type;c!=null;c=c.getSuperclass()) {
+            for (Field f:c.getDeclaredFields()) {
+                if (Modifier.isStatic(f.getModifiers())!=statics || !f.trySetAccessible()) continue;
+                String key=c.getName()+"."+f.getName();
+                Object value=f.get(owner);
+                if (p.length>4 && p[4].equals(key)) return takeField(value,p);
+                String declaration=(Modifier.toString(f.getModifiers())+" "+f.getType().getSimpleName()+" "+f.getName()).trim();
+                rows.add(fieldRow(key,declaration,value,f.getType(),Modifier.isPublic(f.getModifiers())));
+            }
+        }
+        if (p.length>4) throw new IllegalArgumentException();
+        return String.join("\n",rows);
+    }
+
+    private String takeField(Object value,String[] p) {
+        Objects.requireNonNull(value);
+        if(p.length==6){
+            String name=p[5];
+            if(!name.matches("[a-zA-Z_$][a-zA-Z0-9_$]*") || !names.add(name)) throw new IllegalArgumentException(name);
+            bench.put(name,value);
+            return name;
+        }
+        String id=Integer.toString(++nextInspection);
+        inspected.put(id,value);
+        return id;
+    }
+
+    private String fieldRow(String key,String declaration,Object value,Class<?> type,boolean accessible) {
+        boolean reference=value!=null && !type.isPrimitive();
+        String display=value==null ? "null" : value instanceof String ? "\""+value+"\"" :
+            reference ? "→ "+value.getClass().getSimpleName() : String.valueOf(value);
+        return String.join("\t",key,declaration,Base64.getEncoder().encodeToString(display.getBytes(StandardCharsets.UTF_8)),
+            Boolean.toString(reference),Boolean.toString(reference && accessible));
+    }
+
     private String run(String[] p) throws Exception {
         switch (p[0]) {
+            case "retain": return takeField(bench.get(p[1]),p);
+            case "table": return fieldTable(p);
+            case "release": inspected.remove(p[1]); return "";
+            case "frames": return gui.frames(bench.get(p[1]));
+            case "frameState": return gui.frameState(p[1],Boolean.parseBoolean(p[2]));
             case "class": return describe(load(p[1]), false);
             case "staticFields": {
                 StringJoiner fields = new StringJoiner("\n");
