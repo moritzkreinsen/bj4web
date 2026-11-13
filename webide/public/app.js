@@ -83,6 +83,14 @@ async function save() {
   dirty=JSON.stringify(files)!==snapshot;
   el("status").textContent=t("saved"); el("editorState").textContent=t(dirty?"modified":"saved");
 }
+el("homeLink").onclick=event=>{
+  if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || el("ide").hidden)return;
+  event.preventDefault();
+  enqueue(async()=>{
+    while(dirty)await save();
+    location.assign(el("homeLink").href);
+  });
+};
 function requestEntry(title, label, initial="", type="text") {
   const dialog=el("entryDialog"), input=el("entryValue");
   el("entryTitle").textContent=t(title);
@@ -534,7 +542,12 @@ function listFiles() {
   }
   el("empty").hidden=tiles.size>0; sizeSheet();edges();
 }
-if(location.hash){el("link").value=location.href;token=location.hash.slice(1);enqueue(openWorkspace)}
+function openLinkedWorkspace(){
+  if(!location.hash || !el("ide").hidden)return;
+  el("link").value=location.href;token=location.hash.slice(1);enqueue(openWorkspace);
+}
+window.addEventListener("hashchange",openLinkedWorkspace);
+openLinkedWorkspace();
 
 // The native textarea owns selection, input methods and undo. A synchronized,
 // read-only layer supplies BlueJ's token colors and lexical scope backgrounds.

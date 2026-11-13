@@ -166,6 +166,15 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
     await diagram.locator(".guiPanel:visible .windowBar button").last().click();
   }
   if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
+  const workspaceUrl=diagram.url();
+  await diagram.locator("#showProject").click();await circle.dblclick();
+  const editedSource=(await diagram.locator("#source").inputValue())+"\n// Saved before returning home";
+  await diagram.locator("#source").fill(editedSource);
+  await diagram.getByRole("link",{name:"BJ4Web",exact:true}).click();
+  await diagram.locator("#start").waitFor();
+  assert.equal(new URL(diagram.url()).hash,"");
+  await diagram.goto(workspaceUrl);await circle.dblclick();
+  assert.equal(await diagram.locator("#source").inputValue(),editedSource);
   assert.deepEqual(errors,[]);
   console.log("Browser workflow passed: password, sources, compilation, live objects, console, refresh, second browser, ZIP, language and Swing events.");
 } finally {await browser.close()}
