@@ -1,7 +1,7 @@
 "use strict";
 const strings = {
-  en: {windows:"Windows",wrapLines:"Wrap long lines",openClass:"Open class…",minimize:"Minimize",getField:"Get",staticVars:"Show static fields",instanceVars:"Show instance fields",undo:"Undo",cut:"Cut",copy:"Copy",paste:"Paste",find:"Find...",closeEditor:"Close",source:"Source Code",documentation:"Documentation",nextMatch:"Find next",noMatch:"No match",modified:"Modified",manualPaste:"Press Ctrl+V or ⌘V to paste.",testClass:"Create Test Class",unsupportedWeb:"Unavailable in the web version",createObject:"Create Object",methodCall:"Method Call",instanceName:"Instance name:",remove:"Remove",duplicate:"Duplicate...",classInspect:"Inspect",inherited:"inherited from",methodResult:"Method Result",cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show uses arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
-  de: {windows:"Fenster",wrapLines:"Lange Zeilen umbrechen",openClass:"Klasse öffnen…",minimize:"Minimieren",getField:"Hole",staticVars:"Zeige statische Variablen",instanceVars:"Zeige Instanzvariablen",undo:"Rückgängig",cut:"Ausschneiden",copy:"Kopieren",paste:"Einfügen",find:"Suchen...",closeEditor:"Schließen",source:"Quelltext",documentation:"Dokumentation",nextMatch:"Weitersuchen",noMatch:"Kein Treffer",modified:"Geändert",manualPaste:"Zum Einfügen Strg+V oder ⌘V drücken.",testClass:"Testklasse erzeugen",unsupportedWeb:"In der Webversion nicht verfügbar",createObject:"Objekt erzeugen",methodCall:"Methodenaufruf",instanceName:"Instanzname:",remove:"Entfernen",duplicate:"Duplicate...",classInspect:"Inspizieren",inherited:"geerbt von",methodResult:"Methodenergebnis",cancel:"Abbrechen",ok:"OK",rerun:"Re-run",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Benutzt-Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse...",save:"Speichern",compile:"Übersetzen",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
+  en: {windows:"Windows",wrapLines:"Wrap long lines",openClass:"Open class…",minimize:"Minimize",getField:"Get",staticVars:"Show static fields",instanceVars:"Show instance fields",undo:"Undo",cut:"Cut",copy:"Copy",paste:"Paste",find:"Find...",closeEditor:"Close",source:"Source Code",documentation:"Documentation",nextMatch:"Find next",noMatch:"No match",modified:"Modified",manualPaste:"Press Ctrl+V or ⌘V to paste.",testClass:"Create Test Class",unsupportedWeb:"Unavailable in the web version",createObject:"Create Object",methodCall:"Method Call",instanceName:"Instance name:",remove:"Remove",duplicate:"Duplicate...",classInspect:"Inspect",inherited:"inherited from",methodResult:"Method Result",cancel:"Cancel",ok:"OK",rerun:"Run again",project:"Project",edit:"Edit",view:"View",editor:"Open editor",openZip:"Open a project ZIP in a new workspace",inherit:"Create inheritance",uses:"Show arrows",pickChild:"Select the subclass.",pickParent:"Select its superclass.",unsupported:"Edit this inheritance declaration in the source editor.",rename:"Rename file",removeFile:"Delete file",importZip:"Replace sources from ZIP",changePassword:"Change password",erase:"Delete workspace",confirm:"Confirm deletion?",replace:"Replace all sources?",close:"Close window",workspace:"Java workspace",security:"Use trusted Java code on this computer. Anyone with your link can edit the project unless you set a password. Lost links and passwords cannot be recovered.",password:"Workspace password (optional)",create:"Create workspace",link:"Workspace link",open:"Open workspace",add:"New class",save:"Save",compile:"Compile",export:"Export ZIP",share:"Copy link",classes:"Classes",bench:"Object bench",inspect:"Inspector",args:"Arguments, one per line. Use @name for an object.",resultName:"Name for the returned object (optional)",invoke:"Invoke",console:"Console",credit:"BJ4Web is an independent adaptation of BlueJ · GPL v2 with Classpath Exception",filename:"Java source path",compiled:"Compilation succeeded",saved:"Saved",copied:"Workspace link copied",invalid:"Invalid input",empty:"Create a class first",denied:"Check your link and password",capacity:"Local capacity reached",compileFirst:"Compile the project first",stopped:"Runtime stopped",conflict:"Another session saved changes. Copy your edits before reloading.",failed:"Request failed",members:"Constructor or method"},
+  de: {windows:"Fenster",wrapLines:"Lange Zeilen umbrechen",openClass:"Klasse öffnen…",minimize:"Minimieren",getField:"Hole",staticVars:"Zeige statische Variablen",instanceVars:"Zeige Instanzvariablen",undo:"Rückgängig",cut:"Ausschneiden",copy:"Kopieren",paste:"Einfügen",find:"Suchen...",closeEditor:"Schließen",source:"Quelltext",documentation:"Dokumentation",nextMatch:"Weitersuchen",noMatch:"Kein Treffer",modified:"Geändert",manualPaste:"Zum Einfügen Strg+V oder ⌘V drücken.",testClass:"Testklasse erzeugen",unsupportedWeb:"In der Webversion nicht verfügbar",createObject:"Objekt erzeugen",methodCall:"Methodenaufruf",instanceName:"Instanzname:",remove:"Entfernen",duplicate:"Duplicate...",classInspect:"Inspizieren",inherited:"geerbt von",methodResult:"Methodenergebnis",cancel:"Abbrechen",ok:"OK",rerun:"Re-run",project:"Projekt",edit:"Bearbeiten",view:"Ansicht",editor:"Editor öffnen",openZip:"Projekt-ZIP in einem neuen Arbeitsbereich öffnen",inherit:"Vererbung erstellen",uses:"Pfeile anzeigen",pickChild:"Wähle die Unterklasse.",pickParent:"Wähle ihre Oberklasse.",unsupported:"Bearbeite diese Vererbungsbeziehung im Quelltexteditor.",rename:"Datei umbenennen",removeFile:"Datei löschen",importZip:"Quelldateien aus ZIP ersetzen",changePassword:"Passwort ändern",erase:"Arbeitsbereich löschen",confirm:"Löschen bestätigen?",replace:"Alle Quelldateien ersetzen?",close:"Fenster schließen",workspace:"Java-Arbeitsbereich",security:"Führe hier nur vertrauenswürdigen Java-Code aus. Wer den Link kennt, kann das Projekt bearbeiten, sofern du kein Passwort setzt. Verlorene Links und Passwörter lassen sich nicht wiederherstellen.",password:"Passwort für den Arbeitsbereich (optional)",create:"Arbeitsbereich erstellen",link:"Link zum Arbeitsbereich",open:"Arbeitsbereich öffnen",add:"Neue Klasse...",save:"Speichern",compile:"Übersetzen",export:"ZIP exportieren",share:"Link kopieren",classes:"Klassen",bench:"Objektleiste",inspect:"Inspektor",args:"Argumente, eines pro Zeile. Mit @name ein Objekt übergeben.",resultName:"Name für das zurückgegebene Objekt (optional)",invoke:"Aufrufen",console:"Konsole",credit:"BJ4Web ist eine unabhängige Adaption von BlueJ · GPL v2 mit Classpath Exception",filename:"Pfad zur Java-Quelldatei",compiled:"Kompilierung erfolgreich",saved:"Gespeichert",copied:"Link zum Arbeitsbereich kopiert",invalid:"Ungültige Eingabe",empty:"Erstelle zuerst eine Klasse",denied:"Überprüfe Link und Passwort",capacity:"Lokale Kapazitätsgrenze erreicht",compileFirst:"Kompiliere zuerst das Projekt",stopped:"Laufzeit beendet",conflict:"Eine andere Sitzung hat Änderungen gespeichert. Kopiere deine Änderungen vor dem Neuladen.",failed:"Anfrage fehlgeschlagen",members:"Konstruktor oder Methode"}
 };
 const el = id => document.getElementById(id);
 let language = localStorage.getItem("bj4web.language") || navigator.languages.map(s=>s.split("-")[0]).find(s=>s in strings) || "en";
@@ -353,6 +353,7 @@ function editor(path=selected){
   el("findBar").hidden=true;el("editorErrors").hidden=true;
   el("editorState").textContent=t(dirty?"modified":"saved");renderSource();input.focus();
   input.setSelectionRange(state.start,state.end);input.scrollTop=state.scroll;
+  if(el("wrapLines").checked)loadWrappedSource();
 }
 document.querySelectorAll("[data-hide]").forEach(b=>b.onclick=()=>forgetPanel(el(b.dataset.hide)));
 click("editClass",()=>editor());
@@ -376,6 +377,7 @@ function sourceTokens(path) {
 }
 function edges() {
   const lines=[];
+  if(!el("uses").checked){el("edges").replaceChildren();return}
   for(const [path,tile] of tiles) {
     const code=sourceTokens(path);
     const declaration=code.match(/\b(?:class|interface|enum|record)\s+[\w$]+([^{}]*)\{/);
@@ -385,7 +387,7 @@ function edges() {
       const words=value=>value.match(/[A-Za-z_$][\w$]*/g)||[];
       const header=declaration?.[1]||"";
       const inherits=words(header.match(/\b(?:extends|implements)\b[\s\S]*/)?.[0]||"").includes(name);
-      if(!inherits && (!el("uses").checked || !words(code).includes(name))) continue;
+      if(!inherits && !words(code).includes(name)) continue;
       const a={x:tile.offsetLeft+tile.offsetWidth/2,y:tile.offsetTop+tile.offsetHeight/2};
       const b={x:destination.offsetLeft+destination.offsetWidth/2,y:destination.offsetTop+destination.offsetHeight/2};
       const dx=b.x-a.x, dy=b.y-a.y;
@@ -595,27 +597,52 @@ function renderSource(){
 }
 function layoutLineNumbers(){
   const source=el("source"), overlay=el("highlight"), gutter=el("lineNumbers");
-  const wrapped=el("wrapLines").checked;
-  overlay.style.width=wrapped?source.clientWidth+"px":"";
-  const rows=Array.from(overlay.children);
-  const heights=wrapped?rows.map(row=>row.offsetHeight):[];
-  gutter.replaceChildren(...rows.map((_,index)=>{
-    const number=document.createElement("div");
-    number.textContent=index+1;
-    if(wrapped)number.style.height=heights[index]+"px";
-    return number;
-  }));
+  gutter.textContent=Array.from(overlay.children,(_,index)=>index+1).join("\n");
   syncSourceScroll();
+}
+let wrappedEditor=null, wrappedPath=null;
+function loadWrappedSource(){
+  const source=el("source");
+  if(!wrappedEditor){
+    wrappedEditor=CodeMirror(el("writing"),{
+      mode:"text/x-java",lineWrapping:true,lineNumbers:true,tabSize:4,indentUnit:4,
+      inputStyle:"contenteditable",screenReaderLabel:t("source"),
+      extraKeys:{Tab:cm=>cm.execCommand("insertSoftTab")}
+    });
+    wrappedEditor.on("renderLine",(cm,line,node)=>{
+      const original=el("highlight").children[cm.getLineNumber(line)];
+      if(original)node.classList.add(...Array.from(original.classList).filter(c=>c!=="codeRow"));
+      const indent=CodeMirror.countColumn(line.text,null,4);
+      // Preserve a usable editing width even for excessively indented input.
+      const offset=Math.min(indent*cm.defaultCharWidth(),Math.max(0,cm.getScrollerElement().clientWidth/2));
+      node.style.textIndent=-offset+"px";
+      node.style.paddingLeft=(4+offset)+"px";
+    });
+    wrappedEditor.on("change",(cm,change)=>{
+      if(change.origin==="setValue")return;
+      source.value=cm.getValue();source.oninput();
+    });
+    wrappedEditor.on("cursorActivity",cm=>{
+      source.setSelectionRange(cm.indexFromPos(cm.getCursor("from")),cm.indexFromPos(cm.getCursor("to")));
+    });
+  }
+  const start=source.selectionStart,end=source.selectionEnd;
+  if(wrappedPath!==editorPath || wrappedEditor.getValue()!==source.value){
+    wrappedEditor.setValue(source.value);wrappedEditor.clearHistory();wrappedPath=editorPath;
+  }
+  wrappedEditor.refresh();
+  wrappedEditor.setSelection(wrappedEditor.posFromIndex(start),wrappedEditor.posFromIndex(end));
+  if(!el("editorPanel").hidden)wrappedEditor.focus();
 }
 function applyLineWrap(){
   const enabled=el("wrapLines").checked;
-  el("source").wrap=enabled?"soft":"off";
-  el("writing").classList.toggle("wrapLines",enabled);layoutLineNumbers();
+  el("writing").classList.toggle("wrapLines",enabled);
+  if(enabled && editorPath)loadWrappedSource();
+  else if(!el("editorPanel").hidden)el("source").focus();
 }
 el("wrapLines").checked=localStorage.getItem("bj4web.wrapLines")==="true";
 el("wrapLines").onchange=()=>{localStorage.setItem("bj4web.wrapLines",el("wrapLines").checked);applyLineWrap()};
 applyLineWrap();
-new ResizeObserver(layoutLineNumbers).observe(el("source"));
 function syncSourceScroll(){
   const source=el("source");el("highlight").scrollTop=source.scrollTop;el("highlight").scrollLeft=source.scrollLeft;
   el("lineNumbers").scrollTop=source.scrollTop;
@@ -637,13 +664,14 @@ function changeEditorMode(){
 el("editorMode").onchange=changeEditorMode;
 el("closeEditor").onclick=resetEditor;
 const codeInput=el("source");
-el("undo").onclick=()=>{codeInput.focus();document.execCommand("undo")};
+function activeEditorFocus(){if(el("wrapLines").checked)wrappedEditor.focus();else codeInput.focus()}
+el("undo").onclick=()=>{if(el("wrapLines").checked){wrappedEditor.undo();return}codeInput.focus();document.execCommand("undo")};
 for(const action of ["copy","cut"])el(action).onclick=()=>{
-  codeInput.focus();document.execCommand(action);
+  activeEditorFocus();document.execCommand(action);
 };
 el("paste").onclick=async()=>{
-  codeInput.focus();
-  try{const text=await navigator.clipboard.readText();document.execCommand("insertText",false,text)}
+  activeEditorFocus();
+  try{const text=await navigator.clipboard.readText();if(el("wrapLines").checked){wrappedEditor.replaceSelection(text);return}document.execCommand("insertText",false,text)}
   catch{el("editorState").textContent=t("manualPaste")}
 };
 function openSearch(){el("findBar").hidden=false;el("searchTerm").focus();el("searchTerm").select()}
@@ -652,6 +680,7 @@ function findNext(){
   let at=codeInput.value.indexOf(term,codeInput.selectionEnd);
   if(at<0)at=codeInput.value.indexOf(term);
   if(at<0){el("editorState").textContent=t("noMatch");return}
+  if(el("wrapLines").checked){wrappedEditor.focus();wrappedEditor.setSelection(wrappedEditor.posFromIndex(at),wrappedEditor.posFromIndex(at+term.length));return}
   codeInput.focus();codeInput.setSelectionRange(at,at+term.length);
   codeInput.scrollTop=Math.max(0,(codeInput.value.slice(0,at).split("\n").length-1)*20-codeInput.clientHeight/2);
 }

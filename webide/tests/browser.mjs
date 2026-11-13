@@ -33,14 +33,24 @@ try {
     }
     await page.locator("#source").fill(source);
     if(path==="Person.java"){
-      await page.locator("nav summary").filter({hasText:"View"}).click();
-      assert.equal(await page.locator("#wrapLines").isChecked(),false);
-      await page.locator("#wrapLines").check();
-      assert.equal(await page.locator("#source").inputValue(),source);
-      assert.ok(await page.locator(".codeRow").first().evaluate(r=>r.offsetHeight>20));
-      assert.equal(await page.locator("#source").evaluate(e=>e.scrollWidth<=e.clientWidth),true);
-      await page.locator("#wrapLines").uncheck();
-      await page.locator("nav summary").filter({hasText:"View"}).click();
+      const wrap=page.locator("#editorPanel #wrapLines");
+      assert.equal(await wrap.isChecked(),false);
+      const line="        // "+"wrapped source ".repeat(36);
+      await page.locator("#source").fill(line);
+      await wrap.check();
+      const geometry=await page.locator(".CodeMirror").evaluate(node=>{
+        const cm=node.CodeMirror, first=cm.charCoords({line:0,ch:8},"local");
+        for(let ch=9;ch<cm.getLine(0).length;ch++){
+          const pos=cm.charCoords({line:0,ch},"local");
+          if(pos.top>first.top)return [first.left,pos.left];
+        }
+        return [];
+      });
+      assert.equal(geometry.length,2);
+      assert.ok(Math.abs(geometry[0]-geometry[1])<2,JSON.stringify(geometry));
+      await page.keyboard.press("End");await page.keyboard.type("test");
+      assert.equal((await page.locator("#source").inputValue()).includes("test"),true);
+      await wrap.uncheck();await page.locator("#source").fill(source);
     }
     await page.locator("#editorCompile").click();
     await page.waitForFunction(()=>document.querySelector("#editorState").textContent.match(/Compilation succeeded|Kompilierung erfolgreich/));

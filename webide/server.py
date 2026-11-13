@@ -251,6 +251,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         assets = {"/": ("index.html","text/html"), "/app.js": ("app.js","text/javascript"),
                   "/style.css": ("style.css","text/css")}
+        for asset, mime in (("codemirror.js", "text/javascript"), ("clike.js", "text/javascript"), ("codemirror.css", "text/css")):
+            assets["/codemirror/" + asset] = ("codemirror/" + asset, mime)
         if not self.valid_host() or self.path not in assets:
             return self.send(404, "text/plain", b"")
         name, mime = assets[self.path]
