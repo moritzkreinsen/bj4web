@@ -182,13 +182,32 @@ def api(db, action, data, token):
                     path = Path(item.filename)
                     if path.is_absolute() or ".." in path.parts or (item.external_attr >> 16) & 0o170000 == 0o120000:
                         raise Fault(400, "invalid")
+                    if "__MACOSX" in path.parts or path.name.startswith("._"):
+                        continue
                     if item.filename.endswith(".java"):
                         if item.filename in imported:
                             raise Fault(400, "invalid")
-                        imported[item.filename] = archive.read(item).decode("utf8")
+                        data_bytes = archive.read(item)
+                        try:
+                            imported[item.filename] = data_bytes.decode("utf-8-sig")
+                        except UnicodeDecodeError:
+                            imported[item.filename] = data_bytes.decode("cp1252")
                 # A desktop ZIP often wraps the project in one directory. Keep package subdirectories.
                 roots = [Path(entry.filename).parent for entry in entries
                          if Path(entry.filename).name == "package.bluej"]
+                if imported and not roots:
+                    # Strip a shared wrapper only when the remaining paths match declared packages.
+                    candidates = set()
+                    for name, source in imported.items():
+                        package = re.search(r"(?m)^\s*package\s+([\w.]+)\s*;", source)
+                        suffix = Path(*(package[1].split(".") if package else []), Path(name).name)
+                        parts = Path(name).parts
+                        if parts[-len(suffix.parts):] != suffix.parts:
+                            break
+                        candidates.add(Path(*parts[:-len(suffix.parts)]))
+                    else:
+                        if len(candidates) == 1:
+                            roots = list(candidates)
                 if imported and roots:
                     root = min(roots, key=lambda path: len(path.parts))
                     if all(Path(name).is_relative_to(root) for name in imported):
