@@ -6,4 +6,8 @@ if [ -z "${JAVA_HOME:-}" ]; then
   else JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")"); fi
 fi
 export JAVA_HOME
+# macOS AWT uses the login session. On Linux give each worker a virtual display when available.
+if [ -z "${BJ4WEB_SWING_DISPLAY:-}" ] && [ "$(uname -s)" = Darwin ]; then
+  export BJ4WEB_SWING_DISPLAY=1
+fi
 exec python3 "$(dirname "$0")/server.py"

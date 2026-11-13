@@ -146,6 +146,8 @@ async function executeCall(call,args,name) {
   }
 }
 async function beginCall(call) {
+  if(call.result==="void" && !call.target && /^main\(String\[\] /.test(call.label))
+    return executeCall(call,["[]"],"");
   const ctor=call.result==="new";
   // Reference-valued calls can put their result on the bench.
   const canKeep=!["new","void","int","char","byte","short","long","float","double","boolean","String"].includes(call.result);
@@ -224,6 +226,12 @@ async function renderWindow(name) {
       const bitmap=await createImageBitmap(new Blob([bytes],{type:"image/png"}));
       const canvas=document.createElement("canvas"); canvas.width=bitmap.width;canvas.height=bitmap.height;
       canvas.getContext("2d").drawImage(bitmap,0,0);bitmap.close();view.body.append(canvas);
+      if(id)canvas.onclick=event=>{
+        const bounds=canvas.getBoundingClientRect();
+        const x=Math.floor((event.clientX-bounds.left)*canvas.width/bounds.width);
+        const y=Math.floor((event.clientY-bounds.top)*canvas.height/bounds.height);
+        enqueue(async()=>{await rpc("pointer",id,String(x),String(y));await renderWindow("")});
+      };
     }else{
       const node=document.createElement(kind==="button"?"button":"p");node.textContent=decodeCell(encoded);
       if(kind==="button")node.onclick=()=>enqueue(async()=>{await rpc("click",id);await renderWindow("")});

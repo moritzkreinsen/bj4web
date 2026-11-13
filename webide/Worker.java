@@ -38,6 +38,7 @@ public class Worker {
     private Object argument(String text, Class<?> type) {
         if (text.startsWith("@")) return type.cast(Objects.requireNonNull(bench.get(text.substring(1))));
         if (text.equals("null") && !type.isPrimitive()) return null;
+        if (type == String[].class && text.equals("[]")) return new String[0];
         if (type == String.class) return text.startsWith("\"") && text.endsWith("\"") && text.length() >= 2
             ? text.substring(1,text.length()-1) : text;
         if (type == char.class && text.length() == 1) return text.charAt(0);
@@ -129,6 +130,7 @@ public class Worker {
                 return kind + "\n" + String.join("\n", edges);
             }
             case "gui": return gui.render(bench.get(p[1]));
+            case "pointer": return gui.pointer(p[1], Integer.parseInt(p[2]), Integer.parseInt(p[3]));
             case "click": return gui.click(p[1]);
             case "close": return gui.close(bench.get(p[1]));
             case "bench": return names.stream().map(n -> n + "\t" + bench.get(n).getClass().getSimpleName()).collect(Collectors.joining("\n"));

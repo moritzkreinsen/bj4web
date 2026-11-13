@@ -84,7 +84,13 @@ def compile_project(key, files):
         if result.returncode:
             folder.cleanup()
             return {"ok": False, "console": result.stderr.decode(errors="replace")}
-        process = subprocess.Popen([JAVA / "java", "-Xmx96m", "-Djava.awt.headless=true", "-cp", os.pathsep.join([build.name, str(classes)]),
+        desktop = os.environ.get("BJ4WEB_SWING_DISPLAY") == "1"
+        launcher = []
+        if not desktop and os.environ.get("BJ4WEB_SWING_DISPLAY") is None and shutil.which("xvfb-run"):
+            launcher = ["xvfb-run", "-a"]
+            desktop = True
+        process = subprocess.Popen([*launcher, JAVA / "java", "-Xmx96m", "-Dapple.awt.UIElement=true",
+                                    "-Djava.awt.headless=" + str(not desktop).lower(), "-cp", os.pathsep.join([build.name, str(classes)]),
                                     "Worker"], cwd=path, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                    stderr=subprocess.DEVNULL, start_new_session=True)
         sessions[key] = [process, folder, time.monotonic()]
@@ -98,7 +104,7 @@ def runtime(key, parts):
     if key not in sessions:
         raise Fault(409, "compileFirst")
     if not isinstance(parts, list) or not parts or parts[0] not in (
-        "objects", "frames", "retain", "frameState", "release", "table", "staticFields", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "close", "relations"
+        "objects", "frames", "retain", "frameState", "release", "table", "staticFields", "class", "methods", "bench", "fields", "invoke", "remove", "gui", "click", "pointer", "close", "relations"
     ) or not all(isinstance(item, str) for item in parts):
         raise Fault(400, "invalid")
     process = sessions[key][0]
