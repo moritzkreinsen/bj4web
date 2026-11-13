@@ -592,11 +592,11 @@ function renderSource(){
     }
     fragment.append(row);
   }
-  el("highlight").replaceChildren(fragment);
+  el("highlightRows").replaceChildren(fragment);
   layoutLineNumbers();
 }
 function layoutLineNumbers(){
-  const source=el("source"), overlay=el("highlight"), gutter=el("lineNumbers");
+  const source=el("source"), overlay=el("highlightRows"), gutter=el("lineNumbers");
   gutter.textContent=Array.from(overlay.children,(_,index)=>index+1).join("\n");
   syncSourceScroll();
 }
@@ -610,7 +610,7 @@ function loadWrappedSource(){
       extraKeys:{Tab:cm=>cm.execCommand("insertSoftTab")}
     });
     wrappedEditor.on("renderLine",(cm,line,node)=>{
-      const original=el("highlight").children[cm.getLineNumber(line)];
+      const original=el("highlightRows").children[cm.getLineNumber(line)];
       if(original)node.classList.add(...Array.from(original.classList).filter(c=>c!=="codeRow"));
       const indent=CodeMirror.countColumn(line.text,null,4);
       // Preserve a usable editing width even for excessively indented input.

@@ -64,9 +64,10 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 .codeArea{position:relative;flex:1;min-width:0;overflow:hidden}
 #source,#highlight,#lineNumbers{font:15px/20px ui-monospace,Menlo,Consolas,monospace;font-variant-ligatures:none;tab-size:4}
 #source,#highlight{position:absolute;inset:0;width:100%;height:100%;margin:0;border:0;padding:0 2px;white-space:pre;overflow:auto}
-#highlight{pointer-events:none;scrollbar-width:none}#highlight::-webkit-scrollbar{display:none}
+#highlight{pointer-events:none;scrollbar-width:none}
+#highlightRows{width:max-content;min-width:100%}#highlight::-webkit-scrollbar{display:none}
 #source{background:transparent;color:transparent;caret-color:#fa0065;resize:none;outline:0;-webkit-text-fill-color:transparent}#source::selection{background:#74a7d65c}
-.codeRow{height:20px;width:max-content;min-width:100%}.codeRow.scopeClass{background:#e1f8e1}.codeRow.scopeMethod{background:linear-gradient(to right,#e1f8e1 4ch,#fafab4 4ch)}.codeRow.scopeLoop{background:#f8e9f8}.codeRow.scopeChoice{background:#e9e9f8}
+.codeRow{height:20px}.codeRow.scopeClass{background:#e1f8e1}.codeRow.scopeMethod{background:linear-gradient(to right,#e1f8e1 4ch,#fafab4 4ch)}.codeRow.scopeLoop{background:#f8e9f8}.codeRow.scopeChoice{background:#e9e9f8}
 .codeRow.scopeBody{background-color:white;background-image:linear-gradient(to right,#e1f8e1 min(4ch,var(--indent)),var(--scope,#e1f8e1) min(4ch,var(--indent)) var(--indent),white var(--indent))}.scopeMethod{--scope:#fafab4}.scopeLoop{--scope:#f8e9f8}.scopeChoice{--scope:#e9e9f8}.javaKeyword{color:#603}.javaType{color:#c00}.javaLiteral{color:#060}.javaComment{color:#777}.javaDoc{color:#009}
 #editorState{min-height:22px;padding:2px 8px;text-align:right;border-top:1px solid #bbb}#editorErrors{background:#fff4ec;color:#842600;max-height:20%;overflow:auto;margin:0;padding:6px}#sourceDocs{flex:1;overflow:auto;background:white;padding:1rem 2rem}#sourceDocs pre{margin:.75em 0}
 #lineNumbers{white-space:pre}

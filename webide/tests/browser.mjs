@@ -36,6 +36,12 @@ try {
       const wrap=page.locator("#editorPanel #wrapLines");
       assert.equal(await wrap.isChecked(),false);
       const line="        // "+"wrapped source ".repeat(36);
+      await page.locator("#source").fill("public class Person {\n"+line+"\n}");
+      await page.locator("#source").evaluate(node=>{node.scrollLeft=node.scrollWidth});
+      await page.waitForFunction(()=>document.querySelector("#highlight").scrollLeft>0);
+      const reachesRightEdge=await page.locator("#highlight").evaluate(node=>
+        node.querySelector(".scopeClass").getBoundingClientRect().right>=node.getBoundingClientRect().right-3);
+      assert.ok(reachesRightEdge,"Class shading should reach the right edge after horizontal scrolling");
       await page.locator("#source").fill(line);
       await wrap.check();
       const geometry=await page.locator(".CodeMirror").evaluate(node=>{
