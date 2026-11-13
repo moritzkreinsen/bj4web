@@ -83,3 +83,8 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 .inspectActions{display:inline-flex;vertical-align:top;flex-direction:column;gap:8px;padding:5px;width:24%}.objectInspector button{font-size:12px}.objectInspector>button{margin-top:8px}.guiPanel{left:5vw;right:auto;width:max-content;max-width:92vw}
 
 #homeLink{color:inherit;text-decoration:none}#homeLink:hover,#homeLink:focus-visible{text-decoration:underline}
+
+#windowsMenu{margin-left:auto}
+.wrapLines #source,.wrapLines .codeRow{white-space:pre-wrap;overflow-wrap:break-word}
+.wrapLines .codeRow{width:100%;height:auto;min-height:20px}
+#tabList{overflow-x:auto}#tabList button{flex:none}

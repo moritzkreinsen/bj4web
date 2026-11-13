@@ -45,9 +45,15 @@ class WorkspaceTest(unittest.TestCase):
             self.request("open", password="changed")
 
     def test_archive_round_trip_and_rejection(self):
-        files = {"A.java": "class A {}"}
+        files = {"A.java": "class A {}", "school/model/B.java": "package school.model; class B {}"}
         self.request("save", files=files, revision=0)
-        archive = self.request("export")["archive"]
+        archive = self.request("export", layout={"A.java": [97, 83]})["archive"]
+        with zipfile.ZipFile(io.BytesIO(base64.b64decode(archive))) as exported:
+            root = exported.read("package.bluej").decode()
+            self.assertIn("target1.x=97", root)
+            self.assertIn("target2.type=PackageTarget", root)
+            self.assertIn(b"target1.name=model", exported.read("school/package.bluej"))
+            self.assertIn(b"target1.name=B", exported.read("school/model/package.bluej"))
         self.request("import", archive=archive, revision=1)
         for path, size in (("../bad.java", 1), ("/absolute.java", 1), ("Large.java", 1100000)):
             stream = io.BytesIO()

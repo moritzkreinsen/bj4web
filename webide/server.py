@@ -116,6 +116,30 @@ def runtime(key, parts):
         raise Fault(409, "stopped")
 
 
+def write_bluej_packages(archive, files, layout):
+    packages = {Path("."): {}}
+    for filename in sorted(files):
+        path = Path(filename)
+        package = path.parent
+        packages.setdefault(package, {})[path.stem] = ("ClassTarget", filename)
+        while package != Path("."):
+            packages.setdefault(package.parent, {})[package.name] = ("PackageTarget", None)
+            package = package.parent
+
+    for package, targets in packages.items():
+        lines = ["#BlueJ package file", f"package.numTargets={len(targets)}"]
+        for index, (name, (kind, filename)) in enumerate(sorted(targets.items())):
+            point = layout.get(filename)
+            if not (isinstance(point, list) and len(point) == 2 and
+                    all(type(n) is int and 0 <= n <= 100000 for n in point)):
+                point = [30 + (index % 4) * 130, 40 + (index // 4) * 90]
+            prefix = f"target{index + 1}."
+            for field, value in dict(name=name, type=kind, x=point[0], y=point[1],
+                                     width=100, height=50).items():
+                lines.append(f"{prefix}{field}={value}")
+        archive.writestr(str(package / "package.bluej"), "\n".join(lines) + "\n")
+
+
 def api(db, action, data, token):
     password = data.get("password", "")
     if not isinstance(password, str) or len(password) > 256:
@@ -193,6 +217,10 @@ def api(db, action, data, token):
     if action == "export":
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as archive:
+            layout = data.get("layout", {})
+            if not isinstance(layout, dict):
+                raise Fault(400, "invalid")
+            write_bluej_packages(archive, files, layout)
             for name, source in files.items():
                 archive.writestr(name, source)
         return {"archive": base64.b64encode(buf.getvalue()).decode()}

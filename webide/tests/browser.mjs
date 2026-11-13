@@ -32,6 +32,16 @@ try {
       assert.match(await page.locator("#editorErrors").innerText(),/Person.java/);
     }
     await page.locator("#source").fill(source);
+    if(path==="Person.java"){
+      await page.locator("nav summary").filter({hasText:"View"}).click();
+      assert.equal(await page.locator("#wrapLines").isChecked(),false);
+      await page.locator("#wrapLines").check();
+      assert.equal(await page.locator("#source").inputValue(),source);
+      assert.ok(await page.locator(".codeRow").first().evaluate(r=>r.offsetHeight>20));
+      assert.equal(await page.locator("#source").evaluate(e=>e.scrollWidth<=e.clientWidth),true);
+      await page.locator("#wrapLines").uncheck();
+      await page.locator("nav summary").filter({hasText:"View"}).click();
+    }
     await page.locator("#editorCompile").click();
     await page.waitForFunction(()=>document.querySelector("#editorState").textContent.match(/Compilation succeeded|Kompilierung erfolgreich/));
     await page.locator("#closeEditor").click();
@@ -111,12 +121,13 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.locator("#editorMode").selectOption("docs");
   assert.match(await diagram.locator("#sourceDocs").innerText(),/changeSize/);
   await diagram.locator("#editorMode").selectOption("source");
-  await diagram.locator("#openClassTab").selectOption("Square.java");
+  assert.equal(await diagram.locator("#tabList button").count(),4);
+  await diagram.locator("#tabList button").filter({hasText:"Square"}).click();
   assert.match(await diagram.locator("#source").inputValue(),/class Square/);
-  await diagram.locator("#showProject").click();
+  await diagram.keyboard.press("Escape");
   await circle.dblclick();await diagram.locator("#tabList button").filter({hasText:"Square"}).click();
   assert.match(await diagram.locator("#source").inputValue(),/class Square/);
-  await diagram.locator("#showProject").click();
+  await diagram.keyboard.press("Escape");
   async function newCircle(expected,override) {
     await circle.click({button:"right"});
     await diagram.locator("#context button").filter({hasText:"new Circle()"}).click();
@@ -136,7 +147,7 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   }
   await method("makeVisible()");
   await diagram.waitForFunction(()=>document.querySelector(".guiPanel:not([hidden]) canvas")?.getContext("2d").getImageData(60,70,1,1).data[2]===255 && document.querySelector(".guiPanel:not([hidden]) canvas").getContext("2d").getImageData(60,70,1,1).data[0]===0);
-  await diagram.locator("#showProject").click();
+  await diagram.keyboard.press("Escape");
   await diagram.locator("#windowsMenu summary").click();
   await diagram.locator("#windowList button").filter({hasText:"Shapes"}).first().click();
   await diagram.locator("#window canvas").waitFor();
@@ -167,7 +178,7 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   }
   if(process.env.BJ4WEB_SCREENSHOT) await diagram.screenshot({path:process.env.BJ4WEB_SCREENSHOT});
   const workspaceUrl=diagram.url();
-  await diagram.locator("#showProject").click();await circle.dblclick();
+  await diagram.keyboard.press("Escape");await circle.dblclick();
   const editedSource=(await diagram.locator("#source").inputValue())+"\n// Saved before returning home";
   await diagram.locator("#source").fill(editedSource);
   await diagram.getByRole("link",{name:"BJ4Web",exact:true}).click();
