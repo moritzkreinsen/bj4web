@@ -10,10 +10,22 @@ try {
   const errors=[]; page.on("pageerror",e=>errors.push(e.message));
   const url=process.env.BJ4WEB_URL || "http://127.0.0.1:8074";
   await page.goto(url);
-  await page.locator("#password").fill("local-test-only");
+
   await page.locator("#create").click();
   await page.locator("#ide").waitFor();
   const project=page.url();
+  async function projectAction(tab,id){
+    await tab.locator("nav summary").first().click();
+    await tab.locator("#"+id).click();
+  }
+  async function enterPassword(tab){
+    await tab.locator("#entryValue").fill("local-test-only");
+    await tab.locator("#entryAccept").click();
+  }
+  await projectAction(page,"changePassword"); await enterPassword(page);
+  const linkDownload=page.waitForEvent("download");
+  await projectAction(page,"share");
+  assert.equal(await readFile(await (await linkDownload).path(),"utf8"),project+"\nWorkspace password: local-test-only\n");
   await page.locator("#add").click();
   await page.locator("#entryValue").press("Escape");
   await page.locator("#entryDialog").waitFor({state:"hidden"});
@@ -98,12 +110,12 @@ try {
   const download=page.waitForEvent("download"); await page.locator("nav summary").first().click(); await page.locator("#export").click();
   assert.equal((await download).suggestedFilename(),"bj4web.zip");
   await page.reload(); await page.locator("#start").waitFor();
-  await page.locator("#password").fill("local-test-only"); await page.locator("#open").click();
+  await enterPassword(page);
   await page.locator("#ide").waitFor(); assert.equal(await page.locator("#source").inputValue(),source);
   const second=await browser.newPage(); await second.goto(project);
-  await second.waitForFunction(()=>document.querySelector("#status").textContent.length>0);
+  await second.locator("#entryDialog").waitFor();
   assert.equal(await second.locator("#ide").isHidden(),true);
-  await second.locator("#password").fill("local-test-only"); await second.locator("#open").click();
+  await enterPassword(second);
   await second.locator("#ide").waitFor(); assert.equal(await second.locator("#source").inputValue(),source);
   await add("CounterWindow.java",await readFile(new URL("../examples/CounterWindow.java",import.meta.url),"utf8"));
   await invoke("CounterWindow.create()","","counter");
@@ -197,11 +209,16 @@ sys.stdout.buffer.write(b.getvalue())`],{cwd:projects});
   await diagram.keyboard.press("Escape");await circle.dblclick();
   const editedSource=(await diagram.locator("#source").inputValue())+"\n// Saved before returning home";
   await diagram.locator("#source").fill(editedSource);
-  await diagram.getByRole("link",{name:"BJ4Web",exact:true}).click();
+  await projectAction(diagram,"closeProject");
   await diagram.locator("#start").waitFor();
   assert.equal(new URL(diagram.url()).hash,"");
   await diagram.goto(workspaceUrl);await circle.dblclick();
   assert.equal(await diagram.locator("#source").inputValue(),editedSource);
+  const chooser=diagram.waitForEvent("filechooser");
+  await projectAction(diagram,"importProject");
+  await (await chooser).setFiles(fileURLToPath(new URL("../examples",import.meta.url)));
+  await diagram.locator("#entryAccept").click();
+  await diagram.locator('.tile[data-path="CounterWindow.java"]').waitFor();
   assert.deepEqual(errors,[]);
   console.log("Browser workflow passed: password, sources, compilation, live objects, console, refresh, second browser, ZIP, language and Swing events.");
 } finally {await browser.close()}

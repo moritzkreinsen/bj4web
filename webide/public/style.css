@@ -96,3 +96,8 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 
 .editorTools label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
 #tabList{overflow-x:auto}#tabList button{flex:none}
+
+#start{display:grid;gap:12px}
+#start button{padding:14px 20px;font-size:1rem;font-weight:600}
+footer a{color:#000;text-decoration:none}
+footer a:hover,footer a:focus-visible{text-decoration:underline}
