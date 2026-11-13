@@ -67,8 +67,13 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 #highlight{pointer-events:none;scrollbar-width:none}
 #highlightRows{width:max-content;min-width:100%}#highlight::-webkit-scrollbar{display:none}
 #source{background:transparent;color:transparent;caret-color:#fa0065;resize:none;outline:0;-webkit-text-fill-color:transparent}#source::selection{background:#74a7d65c}
-.codeRow{height:20px}.codeRow.scopeClass{background:#e1f8e1}.codeRow.scopeMethod{background:linear-gradient(to right,#e1f8e1 4ch,#fafab4 4ch)}.codeRow.scopeLoop{background:#f8e9f8}.codeRow.scopeChoice{background:#e9e9f8}
-.codeRow.scopeBody{background-color:white;background-image:linear-gradient(to right,#e1f8e1 min(4ch,var(--indent)),var(--scope,#e1f8e1) min(4ch,var(--indent)) var(--indent),white var(--indent))}.scopeMethod{--scope:#fafab4}.scopeLoop{--scope:#f8e9f8}.scopeChoice{--scope:#e9e9f8}.javaKeyword{color:#603}.javaType{color:#c00}.javaLiteral{color:#060}.javaComment{color:#777}.javaDoc{color:#009}
+.codeRow{height:20px}
+.codeRow,.CodeMirror pre.CodeMirror-line{
+  background-image:var(--frame-edge,none),var(--frame-fill,none);
+  background-size:var(--frame-right,100%) 100%,100% 100%;
+  background-repeat:no-repeat;
+}
+.javaKeyword{color:#603}.javaType{color:#c00}.javaLiteral{color:#060}.javaComment{color:#777}.javaDoc{color:#009}
 #editorState{min-height:22px;padding:2px 8px;text-align:right;border-top:1px solid #bbb}#editorErrors{background:#fff4ec;color:#842600;max-height:20%;overflow:auto;margin:0;padding:6px}#sourceDocs{flex:1;overflow:auto;background:white;padding:1rem 2rem}#sourceDocs pre{margin:.75em 0}
 #lineNumbers{white-space:pre}
 #ide>nav{position:sticky;top:0;z-index:100000;background:var(--chrome);align-items:center}
@@ -88,6 +93,6 @@ button:disabled{color:#777;cursor:default;background:#e5e5e5}
 #windowsMenu{margin-left:auto}
 #writing:not(.wrapLines)>.CodeMirror,.wrapLines>.codeArea,.wrapLines>#lineNumbers{display:none}
 #writing>.CodeMirror{flex:1;min-width:0;height:100%;font:15px/20px ui-monospace,Menlo,Consolas,monospace;font-variant-ligatures:none}
-.CodeMirror pre.scopeClass{background:#e1f8e1}.CodeMirror pre.scopeMethod{background:#fafab4}.CodeMirror pre.scopeChoice{background:#e9e9f8}.CodeMirror pre.scopeLoop{background:#f8e9f8}
+
 .editorTools label{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
 #tabList{overflow-x:auto}#tabList button{flex:none}

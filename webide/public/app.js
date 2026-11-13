@@ -554,7 +554,7 @@ function renderSource(){
   const lex=/\/\*|\/\/.*|"""|"(?:\\.|[^"\\])*"?|'(?:\\.|[^'\\])*'?|[A-Za-z_$][\w$]*|[{};]|\s+|./gy;
   for(const line of lines){
     const row=document.createElement("div");row.className="codeRow";
-    let kind=scopes.at(-1), pos=0, boundary=false;
+    let frames=scopes.slice(), pos=0, boundary=false;
     while(pos<line.length){
       let value,style="";
       if(block){
@@ -572,9 +572,12 @@ function renderSource(){
           if(/^(class|interface|enum|record|void|byte|char|int|short|long|float|double|boolean)$/.test(value))style="javaType";
           else if(/^(public|private|protected|static|final|abstract|new|return|this|super|extends|implements|import|package|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|throws|synchronized|volatile|instanceof|true|false|null)$/.test(value))style="javaKeyword";
           if(value==="{"){
-            const scope=/\b(class|interface|enum|record)\b/.test(statement)?"Class":/\b(for|while|do)\b/.test(statement)?"Loop":/\b(if|else|switch|try|catch|finally)\b/.test(statement)?"Choice":statement.includes(")")?"Method":scopes.at(-1);
-            scopes.push(scope); kind=scope;statement="";boundary=true;
-          }else if(value==="}"){scopes.pop();statement="";boundary=true}
+            const initializer=/\[\s*\]\s*$|=\s*$/.test(statement) || scopes.at(-1)===null;
+            const scope=initializer?null:/\b(class|interface|enum|record)\b/.test(statement)?"Class":/\b(for|while|do)\b/.test(statement)?"Loop":/\b(if|else|switch|try|catch|finally)\b/.test(statement)?"Choice":statement.includes(")")?"Method":scopes.at(-1);
+            scopes.push(scope);
+            if(scope && scopes.length>frames.length)frames=scopes.slice();
+            statement="";if(scope)boundary=true;
+          }else if(value==="}"){if(scopes.pop())boundary=true;statement=""}
           else if(value===";")statement="";
           else statement=(statement+value).slice(-1000);
         }
@@ -584,11 +587,23 @@ function renderSource(){
       pos+=value.length;
     }
     statement+=" ";
-    if(kind)row.classList.add("scope"+kind);
-    if(!boundary && kind && line.trim()){
-      let columns=0;
-      for(const char of line.match(/^\s*/)[0]) columns+=char==="\t"?4-columns%4:1;
-      row.style.setProperty("--indent",columns+"ch");row.classList.add("scopeBody");
+    const colors={Class:"#e1f8e1",Method:"#fafab4",Loop:"#f8e9f8",Choice:"#e9e9f8"};
+    const layers=frames.filter(Boolean);
+    if(layers.length){
+      row.classList.add("scope"+layers.at(-1));
+      const indent=CodeMirror.countColumn(line,null,4);
+      if(!boundary && line.trim())layers.push("white");
+      const left=[],right=[];
+      layers.forEach((layer,index)=>{
+        const color=colors[layer] || layer;
+        left.push(color+" "+Math.min(index*4,indent)+"ch");
+        if(index+1<layers.length){
+          left.push(color+" "+Math.min((index+1)*4,indent)+"ch");
+          right.push(color+" "+index*6+"px "+(index+1)*6+"px");
+        }
+      });
+      row.style.setProperty("--frame-fill","linear-gradient(to right,"+left.join(",")+","+left.at(-1)+")");
+      if(right.length)row.style.setProperty("--frame-edge","linear-gradient(to left,"+right.join(",")+",transparent "+right.length*6+"px)");
     }
     fragment.append(row);
   }
@@ -611,7 +626,10 @@ function loadWrappedSource(){
     });
     wrappedEditor.on("renderLine",(cm,line,node)=>{
       const original=el("highlightRows").children[cm.getLineNumber(line)];
-      if(original)node.classList.add(...Array.from(original.classList).filter(c=>c!=="codeRow"));
+      if(original){
+        for(const property of ["--frame-fill","--frame-edge"])
+          node.style.setProperty(property,original.style.getPropertyValue(property));
+      }
       const indent=CodeMirror.countColumn(line.text,null,4);
       // Preserve a usable editing width even for excessively indented input.
       const offset=Math.min(indent*cm.defaultCharWidth(),Math.max(0,cm.getScrollerElement().clientWidth/2));
@@ -645,9 +663,11 @@ el("wrapLines").onchange=()=>{localStorage.setItem("bj4web.wrapLines",el("wrapLi
 applyLineWrap();
 function syncSourceScroll(){
   const source=el("source");el("highlight").scrollTop=source.scrollTop;el("highlight").scrollLeft=source.scrollLeft;
+  el("highlightRows").style.setProperty("--frame-right",(source.scrollLeft+source.clientWidth-4)+"px");
   el("lineNumbers").scrollTop=source.scrollTop;
 }
 el("source").onscroll=syncSourceScroll;
+new ResizeObserver(syncSourceScroll).observe(el("source"));
 function changeEditorMode(){
   const docs=el("editorMode").value==="docs";
   el("writing").hidden=docs;el("sourceDocs").hidden=!docs;
