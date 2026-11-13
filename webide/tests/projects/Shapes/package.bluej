@@ -1,0 +1,18 @@
+#BlueJ package file
+package.numTargets=4
+target1.name=Canvas
+target1.type=ClassTarget
+target1.x=200
+target1.y=30
+target2.name=Circle
+target2.type=ClassTarget
+target2.x=30
+target2.y=160
+target3.name=Square
+target3.type=ClassTarget
+target3.x=200
+target3.y=160
+target4.name=Triangle
+target4.type=ClassTarget
+target4.x=370
+target4.y=160

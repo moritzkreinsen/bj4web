@@ -1,3 +1,21 @@
+# BJ4Web
+
+BJ4Web is an independent, open-source browser adaptation of BlueJ. The local prototype supports persistent anonymous projects, Java compilation, live objects and an experimental Swing bridge.
+
+## Run the local prototype
+
+Install Python 3.9+ and JDK 21 on the host, set JAVA_HOME to the JDK if needed, then run:
+
+```sh
+./webide/start.sh
+```
+
+Open http://127.0.0.1:8074. **Run only Java code you trust.** A separate JVM runs as your OS user. End users access the IDE through the browser. Source files persist under ~/.local/share/bj4web by default. BJ4WEB_STORAGE overrides this directory and BJ4WEB_PORT selects a different loopback port.
+
+Create a workspace, optionally enter a password, and keep its link. Add Person.java, edit and compile it. Double-click a diagram class to edit it. Right-click a compiled class to select a public constructor, enter one argument per line, give the result a name, and invoke it. Select the resulting object to inspect fields or choose a method. Use @name to pass an existing object. Recompiling clears live objects. Use Project → Export ZIP for a source backup. Open a project ZIP from the start screen to create a separate workspace. Classroom fixtures live under webide/tests/projects.
+
+For contributions, branch from the fork, run the workspace and browser tests described in .github/workflows/bj4web.yml, update the feature matrix and open a draft pull request. Architecture, compatibility, licensing, security limits and verification are documented under [docs](docs/). Original desktop build instructions follow.
+
 <img src="bluej/icons/bluej-icon-512-embossed.png" align="left" width="128">
 <img src="greenfoot/resources/images/greenfoot-icon-big.jpg" align="right" width="100">
 
